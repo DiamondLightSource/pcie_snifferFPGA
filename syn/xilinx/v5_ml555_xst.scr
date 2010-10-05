@@ -1,0 +1,14 @@
+run
+-ifn pcie_cc_top.lst
+-p xc5vlx50t-ff1136-1
+-bufg 0
+-top pcie_cc_top
+-ofn pcie_cc_top.ngc
+-opt_mode SPEED
+-opt_level 2
+-ofmt NGC
+-ram_style Block
+-fsm_encoding One-Hot
+-read_cores Yes
+-sd {"../../rtl/FastFeedbackFPGA/rtl/fofb_cc_rx_fifo/coregen/virtex5/" "../../rtl/FastFeedbackFPGA/rtl/fofb_cc_tx_fifo/coregen/virtex5/"}
+-uc pcie_cc_top.xcf

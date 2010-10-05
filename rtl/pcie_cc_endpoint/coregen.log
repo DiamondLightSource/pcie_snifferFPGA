@@ -1,0 +1,89 @@
+Welcome to Xilinx CORE Generator.
+Help system initialised.
+Closed project file.
+Opening project file
+/home/iu42/MyProjects/FPGADevelopment/Pcie/ml555/pcie_cc/rtl/pcie_cc_endpoint/co
+regen.cgp.
+Looking for license.
+Full license for component <pcie_blk_plus> allows you to use this component.
+This license does not give you access to source code implementing this
+component. The license for this core was generated for isa.uzun@diamond.ac.uk on
+10/16/2009. It is the responsibility of the Licensee of this core to adhere to
+the site restriction and other terms of the Xilinx Core Site License Agreement
+when using this core.  Recustomizing IP...
+Finished Recustomizing.
+Regenerating IP...
+WARNING:sim:89 - A core named <endpoint_blk_plus_v1_13_8_lane> already exists in
+   the output directory. Output products for this core may be overwritten.
+WARNING:sim:93 - NGC output will not be generated for this core.
+Finished Regenerating.
+Generating ISE file...
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/dual_core/xilinx_dual_pci_exp_e
+   p.v does not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/dual_core/xilinx_pci_exp_primar
+   y_ep.v does not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/dual_core/xilinx_pci_exp_second
+   ary_ep_dual.v does not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/dual_core/xilinx_pci_exp_second
+   ary_ep.v does not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/pci_exp_x_lane_64b_ep.v does
+   not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/xilinx_pci_exp_1_lane_ep_produc
+   t.v does not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/xilinx_pci_exp_2_lane_ep_produc
+   t.v does not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/xilinx_pci_exp_4_lane_ep_produc
+   t.v does not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/xilinx_pci_exp_64b_ep.v does
+   not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/pci_exp_1_lane_64b_ep.v does
+   not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/pci_exp_2_lane_64b_ep.v does
+   not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/example_design/pci_exp_4_lane_64b_ep.v does
+   not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/simulation/functional/xilinx_lib_mti.v does
+   not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/simulation/functional/xilinx_lib_vcs.v does
+   not exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/simulation/functional/xilinx_lib_vnc.v does
+   not exist, will not be added to ISE project.
+WARNING:sim -  endpoint_blk_plus_v1_13_8_lane/simulation/board_dual.v does not
+   exist, will not be added to ISE project.
+WARNING:sim - 
+   endpoint_blk_plus_v1_13_8_lane/simulation/xilinx_pci_exp_defines.v does not
+   exist, will not be added to ISE project.
+WARNING:sim -  endpoint_blk_plus_v1_13_8_lane/simulation/tests/sample_tests2.v
+   does not exist, will not be added to ISE project.
+WARNING:sim -  endpoint_blk_plus_v1_13_8_lane/source/bram_commonn.v does not
+   exist, will not be added to ISE project.
+Finished ISE file generation.
+Generating FLIST file...
+Finished FLIST file generation.
+Preparing output directory...
+Finished preparing output directory.
+Moving files to output directory...
+Finished moving files to output directory.
+Looking for license.
+Full license for component <pcie_blk_plus> allows you to use this component.
+This license does not give you access to source code implementing this
+component. The license for this core was generated for isa.uzun@diamond.ac.uk on
+10/16/2009. It is the responsibility of the Licensee of this core to adhere to
+the site restriction and other terms of the Xilinx Core Site License Agreement
+when using this core.  Recustomizing IP...
+Cancelled Recustomization.

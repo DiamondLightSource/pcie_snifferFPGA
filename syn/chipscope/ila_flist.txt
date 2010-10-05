@@ -1,0 +1,9 @@
+# Output products list for <ila>
+ila.cdc
+ila.ncf
+ila.ngc
+ila.vhd
+ila.vho
+ila.xco
+ila_flist.txt
+ila_xmdf.tcl
