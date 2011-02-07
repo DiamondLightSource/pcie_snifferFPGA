@@ -17,7 +17,7 @@ VERSION_FILE = ../../rtl/pcie_cc_bmd/verilog/common/pcie_cc_version.v
 #
 # Name of the PC to be used for programming the FPGA
 #
-JTAG_PC = pc0046
+JTAG_PC = pc0035
 
 #
 # Hardware Platform Settings
@@ -173,14 +173,12 @@ pcie_cc_top.mcs:
 # Program FPGA
 #
 pcie_cc_top.fpga:
-	sudo chmod 666 /dev/windrvr6
 	ssh iu42@$(JTAG_PC) 'cd $(CURDIR);$(XILINX)/bin/lin/impact -batch ../xilinx/$(FPGA)_$(BOARD)_loadFPGA.cmd'
 
 #
 # Program PROM
 #
 pcie_cc_top.prom: pcie_cc_top.mcs
-	sudo chmod 666 /dev/windrvr6
 	ssh iu42@$(JTAG_PC) 'cd $(CURDIR);$(XILINX)/bin/lin/impact -batch ../xilinx/$(FPGA)_$(BOARD)_loadPROM.cmd'
 
 #

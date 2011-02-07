@@ -441,7 +441,7 @@ CC (
     .fai_rio_tdp_o              ( sfp_txp                   ),
     .fai_rio_tdn_o              ( sfp_txn                   ),
 
-    .xy_buf_addr_i              ( xy_buf_addr               ),
+    .xy_buf_addr_i              ( xy_buf_addr[8:0]          ),
     .xy_buf_dat_o               ( xy_buf_dat                ),
     .timeframe_end_rise_o       ( timeframe_end_rise        ),
     .fofb_dma_ok_i              ( fofb_dma_ok               ),

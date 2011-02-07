@@ -5,5 +5,5 @@
 NET "ics_clk" TNM_NET = ics_clk;
 TIMESPEC TS_ics_clk = PERIOD "ics_clk" 31.25 MHz HIGH 50%;
 
-NET "CC/i_fofb_cc_top/txoutclk" TNM_NET = txoutclk;
+NET "CC/fofb_cc_top/txoutclk" TNM_NET = txoutclk;
 TIMESPEC TS_txoutclk = PERIOD "txoutclk" 212.5 MHz HIGH 50%;
