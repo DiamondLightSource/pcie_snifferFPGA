@@ -38,6 +38,8 @@ wire  [(4 - 1):0]  cor_pci_exp_rxp;
  */
 wire               cor_gtp_clk_p;
 wire               cor_gtp_clk_n;
+wire               cor_gtp_clk2x_p;
+wire               cor_gtp_clk2x_n;
 wire  [(2 - 1):0]  cor_sfp_txn;
 wire  [(2 - 1):0]  cor_sfp_txp;
 wire  [(2 - 1):0]  cor_sfp_rxn;
@@ -48,10 +50,10 @@ wire  [(2 - 1):0]  cor_sfp_rxp;
  */
 pcie_cc_top # (
     .SIM_GTPRESET_SPEEDUP   ( 1                     ),
-    .LANE_COUNT             ( 2                     ),
-    .TX_IDLE_NUM            ( 6                     ),
-    .RX_IDLE_NUM            ( 3                     ),
-    .SEND_ID_NUM            ( 4                     )
+    .LANE_COUNT             ( 2                     )
+//    .TX_IDLE_NUM            ( 6                     ),
+//    .RX_IDLE_NUM            ( 3                     ),
+//    .SEND_ID_NUM            ( 4                     )
 )
 pcie_cc_top(
     // SYS Inteface
@@ -105,26 +107,28 @@ assign              rxp = cor_sfp_txp[0];
 assign              rxn = cor_sfp_txn[0];
 
 fofb_cc_top_tester # (
-    .TX_IDLE_NUM            ( 6                     ),
-    .RX_IDLE_NUM            ( 3                     ),
-    .SEND_ID_NUM            ( 4                     ),
+//    .TX_IDLE_NUM            ( 6                     ),
+//    .RX_IDLE_NUM            ( 3                     ),
+//    .SEND_ID_NUM            ( 4                     ),
     .TEST_DURATION          ( 3                     )
 )
 fofb_cc_top_tester (
-    .brefclk_i              ( cor_gtp_clk_p         ),
-    .userclk_i              ( cor_gtp_clk_p         ),
+    .refclk_i               ( cor_gtp_clk_p         ),
+    .txusrclk_i             ( cor_gtp_clk2x_p       ),
+    .txusrclk2_i            ( cor_gtp_clk_p         ),
     .mgtreset_i             ( cor_gtp_reset         ),
-    .powerdown_o            (                       ),
+    .adcclk_i               (                       ),
 
     .fai_cfg_a_i            ( 11'h0                 ),
-    .fai_cfg_do_i           ( 16'h0                 ),
+    .fai_cfg_do_i           ( 32'h0                 ),
     .fai_cfg_di_o           (                       ),
     .fai_cfg_we_i           ( 1'b0                  ),
     .fai_cfg_clk_i          ( 1'b0                  ),
     .fai_cfg_val_o          (                       ),
 
-    .timeframe_start_i      ( timeframe_start       ),
-    .timeframe_end_i        ( timeframe_end         ),
+    .fai_fa_block_start_o   (                       ),
+    .fai_fa_data_valid_o    (                       ),
+    .fai_fa_d_o             (                       ),
 
     .rxn_i                  ( rxn                   ),
     .rxp_i                  ( rxp                   ),
@@ -208,6 +212,13 @@ sys_clk_gen_ds SYS_CLK_GEN_CC (
     .sys_clk_n      ( cor_gtp_clk_n         )
 );
 defparam SYS_CLK_GEN_CC.halfcycle = 4700;   // 106.25 MHz
+defparam SYS_CLK_GEN_CC.offset = 0;
+
+sys_clk_gen_ds SYS_CLK_GEN_CC_2X (
+    .sys_clk_p      ( cor_gtp_clk2x_p       ),
+    .sys_clk_n      ( cor_gtp_clk2x_n       )
+);
+defparam SYS_CLK_GEN_CC.halfcycle = 2350;   // 106.25x2 MHz
 defparam SYS_CLK_GEN_CC.offset = 0;
 
 initial begin

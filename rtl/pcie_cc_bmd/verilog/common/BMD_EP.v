@@ -448,6 +448,7 @@ BMD_TX_ENGINE EP_TX (
     .trn_tsrc_rdy_n             (trn_tsrc_rdy_n                 ), // O
     .trn_tdst_dsc_n             (trn_tdst_dsc_n                 ), // I
     .trn_tdst_rdy_n             (trn_tdst_rdy_n                 ), // I
+    .trn_tbuf_av                (trn_tbuf_av[3:0]               ), // I [3:0]
 
     /* Handshake with Rx engine */
     .req_compl_i                (req_compl                      ), // I
@@ -475,8 +476,7 @@ BMD_TX_ENGINE EP_TX (
     .mwr_len_i                  ( mwr_len[9:0]                  ), // I [31:0]
     .mwr_count_i                ( mwr_count[15:0]               ), // I [31:0]
     .mwr_tlp_tc_i               ( mwr_tlp_tc_o                  ), // I [2:0]
-    .mwr_64b_en_i               ( 1'b1                          ), // I
-//    .mwr_64b_en_i               ( mwr_64b_en_o                  ), // I
+    .mwr_64b_en_i               ( mwr_64b_en_o                  ), // I
     .mwr_phant_func_dis1_i      ( 1'b1                          ), // I
     .mwr_up_addr_i              ( wdma_addr[39:32]              ), // I [7:0]
     .mwr_lbe_i                  ( 4'hF                          ),

@@ -107,7 +107,7 @@ module BMD #
 // Port Declarations
 ///////////////////////////////////////////////////////////////////////////////
 
-input         trn_clk;         
+input         trn_clk;
 input         trn_reset_n;
 input         trn_lnk_up_n;
 

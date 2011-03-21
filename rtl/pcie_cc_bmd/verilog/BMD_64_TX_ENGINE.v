@@ -34,6 +34,7 @@ module BMD_TX_ENGINE (
     trn_tsrc_dsc_n,
     trn_tdst_rdy_n,
     trn_tdst_dsc_n,
+    trn_tbuf_av,
 
     req_compl_i,
     compl_done_o,
@@ -100,6 +101,7 @@ output              trn_tsrc_rdy_n;
 output              trn_tsrc_dsc_n;
 input               trn_tdst_rdy_n;
 input               trn_tdst_dsc_n;
+input [3:0]         trn_tbuf_av;
 
 input               req_compl_i;
 output              compl_done_o;
@@ -174,7 +176,10 @@ reg [12:0]          mwr_len_byte;
 reg [31:0]          pmwr_addr;
 reg [31:0]          tmwr_addr;
 reg [15:0]          rmwr_count;
-reg  [63:0]         xy_buf_dat_lt;
+reg [63:0]          xy_buf_dat_lt;
+
+
+reg [5:0]           delay_cntr;
 
 // Local wires
 wire                cfg_bm_en = cfg_bus_mstr_enable_i;
@@ -188,6 +193,8 @@ wire [63:0]         xy_buf_dat    = {xy_buf_dat_i[07:00],
                                      xy_buf_dat_i[47:40],
                                      xy_buf_dat_i[55:48],
                                      xy_buf_dat_i[63:56]};
+
+wire [63:0]         trn_data = (mwr_64b_en_i) ? xy_buf_dat_lt : {xy_buf_dat_lt[31:0], xy_buf_dat[63:32]};
 
 wire  [2:0]         mwr_func_num = (!mwr_phant_func_dis1_i && cfg_phant_func_en_i) ?
     ((cfg_phant_func_supported_i == 2'b00) ? 3'b000 :
@@ -287,24 +294,26 @@ always @ ( posedge clk ) begin
         pmwr_addr           <= 32'b0;
         rmwr_count          <= 16'b0;
         bmd_64_tx_state     <= `BMD_64_TX_RST_STATE;
+        delay_cntr          <= 6'h0;
 
     end
     else begin
         if (init_rst_i ) begin
-            trn_tsof_n      <= 1'b1;
-            trn_teof_n      <= 1'b1;
-            trn_tsrc_rdy_n  <= 1'b1;
-            trn_tsrc_dsc_n  <= 1'b1;
-            trn_td          <= 64'b0;
-            trn_trem_n      <= 8'b0;
-            cur_mwr_dw_count<= 10'b0;
-            compl_done_o    <= 1'b0;
-            mwr_done_o      <= 1'b0;
-            cur_wr_count    <= 16'b0;
-            mwr_len_byte    <= 13'b0;
-            pmwr_addr       <= 32'b0;
-            rmwr_count      <= 16'b0;
-            bmd_64_tx_state <= `BMD_64_TX_RST_STATE;
+            trn_tsof_n          <= 1'b1;
+            trn_teof_n          <= 1'b1;
+            trn_tsrc_rdy_n      <= 1'b1;
+            trn_tsrc_dsc_n      <= 1'b1;
+            trn_td              <= 64'b0;
+            trn_trem_n          <= 8'b0;
+            cur_mwr_dw_count    <= 10'b0;
+            compl_done_o        <= 1'b0;
+            mwr_done_o          <= 1'b0;
+            cur_wr_count        <= 16'b0;
+            mwr_len_byte        <= 13'b0;
+            pmwr_addr           <= 32'b0;
+            rmwr_count          <= 16'b0;
+            bmd_64_tx_state     <= `BMD_64_TX_RST_STATE;
+            delay_cntr          <= 6'h0;
         end
 
         mwr_len_byte        <= 4 * mwr_len_i[9:0];
@@ -313,6 +322,7 @@ always @ ( posedge clk ) begin
         case ( bmd_64_tx_state )
 
             `BMD_64_TX_RST_STATE : begin
+                delay_cntr         <= 6'h0;
                 compl_done_o       <= 1'b0;
 
                 // PIO read completions always get highest priority
@@ -347,13 +357,13 @@ always @ ( posedge clk ) begin
                                       {mwr_64b_en_i ? `BMD_64_MWR64_FMT_TYPE : `BMD_64_MWR_FMT_TYPE},
                                       {1'b0},
                                       mwr_tlp_tc_i,
-                                      {4'b0}, 
-                                      1'b0, 
-                                      1'b0, 
-                                      {mwr_relaxed_order_i, mwr_nosnoop_i}, // 2'b00, 
-                                      {2'b0}, 
+                                      {4'b0},
+                                      1'b0,
+                                      1'b0,
+                                      {mwr_relaxed_order_i, mwr_nosnoop_i}, // 2'b00,
+                                      {2'b0},
                                       mwr_len_i[9:0],
-                                      {completer_id_i[15:3], mwr_func_num}, 
+                                      {completer_id_i[15:3], mwr_func_num},
                                       cfg_ext_tag_en_i ? cur_wr_count[7:0] : {3'b0, cur_wr_count[4:0]},
                                       (mwr_len_i[9:0] == 1'b1) ? 4'b0 : mwr_lbe_i,
                                       mwr_fbe_i};
@@ -361,12 +371,11 @@ always @ ( posedge clk ) begin
                     cur_mwr_dw_count  <= mwr_len_i[9:0];
 
                     bmd_64_tx_state   <= `BMD_64_TX_MWR64_QW1;
-                    /*
+
                     if (mwr_64b_en_i)
                       bmd_64_tx_state   <= `BMD_64_TX_MWR64_QW1;
                     else
                       bmd_64_tx_state   <= `BMD_64_TX_MWR_QW1;
-                    */
                 end
                 else begin
                     if(!trn_tdst_rdy_n) begin
@@ -388,9 +397,9 @@ always @ ( posedge clk ) begin
                     trn_tsof_n       <= 1'b1;
                     trn_teof_n       <= 1'b0;
                     trn_tsrc_rdy_n   <= 1'b0;
-                    trn_td           <= { req_rid_i, 
-                                          req_tag_i, 
-                                          {1'b0}, 
+                    trn_td           <= { req_rid_i,
+                                          req_tag_i,
+                                          {1'b0},
                                           lower_addr,
                                           rd_data_i };
                     trn_trem_n       <= 8'h00;
@@ -418,7 +427,6 @@ always @ ( posedge clk ) begin
                     bmd_64_tx_state  <= `BMD_64_TX_CPLD_WIT;
             end
 
-            /*
             `BMD_64_TX_MWR_QW1 : begin
                 if ((!trn_tdst_rdy_n) && (trn_tdst_dsc_n)) begin
                     trn_tsof_n       <= 1'b1;
@@ -429,37 +437,35 @@ always @ ( posedge clk ) begin
                     else
                         tmwr_addr   = pmwr_addr + mwr_len_byte;
 
-                    trn_td          <= {{tmwr_addr[31:2], 2'b00}, xy_buf_dat_lt[31:0]};
+                    trn_td          <= {{tmwr_addr[31:2], 2'b00}, xy_buf_dat[63:32]};
                     pmwr_addr       <= tmwr_addr;
                     cur_wr_count    <= cur_wr_count + 1'b1;
 
                     if (cur_mwr_dw_count == 1'h1) begin
                         trn_teof_n       <= 1'b0;
-                        cur_mwr_dw_count <= cur_mwr_dw_count - 1'h1; 
+                        cur_mwr_dw_count <= cur_mwr_dw_count - 1'h1;
                         trn_trem_n       <= 8'h00;
 
                         if (cur_wr_count == (rmwr_count - 1'b1))  begin
-                            cur_wr_count <= 0; 
+                            cur_wr_count <= 0;
                             mwr_done_o   <= 1'b1;
                         end
 
                         bmd_64_tx_state  <= `BMD_64_TX_RST_STATE;
-                    end 
+                    end
                     else begin
-                        cur_mwr_dw_count <= cur_mwr_dw_count - 1'h1; 
+                        cur_mwr_dw_count <= cur_mwr_dw_count - 1'h1;
                         trn_trem_n       <= 8'hFF;
                         bmd_64_tx_state  <= `BMD_64_TX_MWR_QWN;
                     end
-
-                end 
+                end
                 else if (!trn_tdst_dsc_n) begin
                     bmd_64_tx_state    <= `BMD_64_TX_RST_STATE;
                     trn_tsrc_dsc_n     <= 1'b0;
-                end 
+                end
                 else
                     bmd_64_tx_state    <= `BMD_64_TX_MWR_QW1;
             end
-            */
 
             `BMD_64_TX_MWR64_QW1 : begin
                 if ((!trn_tdst_rdy_n) && (trn_tdst_dsc_n)) begin
@@ -487,9 +493,9 @@ always @ ( posedge clk ) begin
             `BMD_64_TX_MWR_QWN : begin
                 if ((!trn_tdst_rdy_n) && (trn_tdst_dsc_n)) begin
                     trn_tsrc_rdy_n   <= 1'b0;
-                    /*
+
                     if (cur_mwr_dw_count == 1'h1) begin
-                        trn_td           <= {xy_buf_dat_lt[31:0], 32'hd0_da_d0_da};
+                        trn_td           <= {trn_data[63:32], 32'hd0_da_d0_da};
                         trn_trem_n       <= 8'h0F;
                         trn_teof_n       <= 1'b0;
                         cur_mwr_dw_count <= cur_mwr_dw_count - 1'h1; 
@@ -499,23 +505,21 @@ always @ ( posedge clk ) begin
                             cur_wr_count <= 0; 
                             mwr_done_o   <= 1'b1;
                         end
-                    end 
-                    else 
-                    */
-                    if (cur_mwr_dw_count == 2'h2) begin
-                        trn_td           <= xy_buf_dat_lt;
+                    end
+                    else if (cur_mwr_dw_count == 2'h2) begin
+                        trn_td           <= trn_data;
                         trn_trem_n       <= 8'h00;
                         trn_teof_n       <= 1'b0;
-                        cur_mwr_dw_count <= cur_mwr_dw_count - 2'h2; 
+                        cur_mwr_dw_count <= cur_mwr_dw_count - 2'h2;
                         bmd_64_tx_state  <= `BMD_64_TX_RST_STATE;
 
                         if (cur_wr_count == rmwr_count)  begin
-                            cur_wr_count <= 0; 
+                            cur_wr_count <= 0;
                             mwr_done_o   <= 1'b1;
                         end
-                    end 
+                    end
                     else begin
-                        trn_td           <= xy_buf_dat_lt;
+                        trn_td           <= trn_data;
                         trn_trem_n       <= 8'hFF;
                         cur_mwr_dw_count <= cur_mwr_dw_count - 2'h2; 
                         bmd_64_tx_state  <= `BMD_64_TX_MWR_QWN;
@@ -537,10 +541,11 @@ always @ ( posedge clk ) begin
 /*
  * Implement a FIFO-like read interface to x&y position buffers
  */
-wire pop_data = 
-trn_teof_n  && 
+wire pop_data =
+trn_teof_n  &&
 (
 (mwr_start_i && !mwr_done_o && !trn_tdst_rdy_n && trn_tdst_dsc_n && cfg_bm_en && (bmd_64_tx_state == `BMD_64_TX_RST_STATE)) ||
+(!trn_tdst_rdy_n && trn_tdst_dsc_n && (bmd_64_tx_state == `BMD_64_TX_MWR_QW1)) ||
 (!trn_tdst_rdy_n && trn_tdst_dsc_n && (bmd_64_tx_state == `BMD_64_TX_MWR64_QW1)) ||
 (!trn_tdst_rdy_n && trn_tdst_dsc_n && (cur_mwr_dw_count != 1'h1 && cur_mwr_dw_count != 2'h2) && (bmd_64_tx_state == `BMD_64_TX_MWR_QWN))
 );
@@ -574,6 +579,46 @@ begin
     if (pop_data)
         xy_buf_dat_lt = xy_buf_dat;
 end
+
+/*
+ * Chipscope Interface
+ */
+//wire [35:0]     control0;
+//wire [159:0]    data;
+//wire [7:0]      trig;
+//
+//icon i_icon (
+//    .control0                   ( control0                  )
+//);
+//
+//ila i_ila (
+//    .control                    ( control0                  ),
+//    .clk                        ( clk                       ),
+//    .data                       ( data                      ),
+//    .trig0                      ( trig                      )
+//);
+//
+//assign trig[0] = init_rst_i;
+//assign trig[1] = mwr_start_i;
+//assign trig[7:2] = 0;
+//
+//assign data[63:0]   = trn_td;
+//assign data[71:64]  = trn_trem_n;
+//assign data[72]     = trn_tsof_n;
+//assign data[73]     = trn_teof_n;
+//assign data[74]     = trn_tsrc_rdy_n;
+//assign data[75]     = trn_tsrc_dsc_n;
+//assign data[76]     = trn_tdst_rdy_n;
+//assign data[77]     = trn_tdst_dsc_n;
+//assign data[78]     = mwr_start_i;
+//assign data[79]     = mwr_done_o;
+//assign data[80]     = cfg_bm_en;
+//assign data[96:81]  = rmwr_count;
+//assign data[106:97] = cur_mwr_dw_count;
+//assign data[122:107] = cur_wr_count;
+//assign data[126:123] = trn_tbuf_av;
+//assign data[135:127] = bmd_64_tx_state;
+//assign data[136]     = mwr_64b_en_i;
 
 endmodule // BMD_64_TX_ENGINE
 

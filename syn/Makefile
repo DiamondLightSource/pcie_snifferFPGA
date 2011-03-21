@@ -3,7 +3,7 @@ include ../../VERSION
 #
 # ISE environment variable
 #
-export XILINX=/dls_sw/apps/FPGA/Xilinx/12.1/ISE_DS/ISE
+export XILINX=/dls_sw/apps/FPGA/Xilinx/13.1/ISE_DS/ISE
 export PATH:=${XILINX}/bin/lin:${PATH}
 
 #
@@ -17,7 +17,7 @@ VERSION_FILE = ../../rtl/pcie_cc_bmd/verilog/common/pcie_cc_version.v
 #
 # Name of the PC to be used for programming the FPGA
 #
-JTAG_PC = pc0035
+JTAG_PC = pc0003
 
 #
 # Hardware Platform Settings
