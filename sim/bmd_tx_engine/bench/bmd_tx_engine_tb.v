@@ -7,7 +7,7 @@ reg clk;
 reg rst_n;
 reg trn_tdst_rdy_n;
 reg trn_tdst_dsc_n;
-reg [5:0] trn_tbuf_av;
+reg [3:0] trn_tbuf_av;
 reg req_compl_i;
 reg [2:0] req_tc_i;
 reg req_td_i;
@@ -16,18 +16,18 @@ reg [1:0] req_attr_i;
 reg [9:0] req_len_i;
 reg [15:0] req_rid_i;
 reg [7:0] req_tag_i;
-reg [7:0] req_be_i;
+reg [3:0] req_be_i;
 reg [10:0] req_addr_i;
 reg [31:0] rd_data_i;
 reg init_rst_i;
 reg mwr_start_i;
 reg mwr_int_dis_i;
-reg [31:0] mwr_len_i;
+reg [9:0] mwr_len_i;
 reg [7:0] mwr_tag_i;
 reg [3:0] mwr_lbe_i;
 reg [3:0] mwr_fbe_i;
 reg [31:0] mwr_addr_i;
-reg [31:0] mwr_count_i;
+reg [15:0] mwr_count_i;
 reg [2:0] mwr_tlp_tc_i;
 reg mwr_64b_en_i;
 reg mwr_phant_func_dis1_i;
@@ -111,7 +111,6 @@ BMD_TX_ENGINE uut (
     .mwr_start_i(mwr_start_i), 
     .mwr_int_dis_i(mwr_int_dis_i), 
     .mwr_len_i(mwr_len_i), 
-    .mwr_tag_i(mwr_tag_i), 
     .mwr_lbe_i(mwr_lbe_i), 
     .mwr_fbe_i(mwr_fbe_i), 
     .mwr_addr_i(mwr_addr_i), 
@@ -123,7 +122,6 @@ BMD_TX_ENGINE uut (
     .mwr_up_addr_i(mwr_up_addr_i), 
     .mwr_relaxed_order_i(mwr_relaxed_order_i), 
     .mwr_nosnoop_i(mwr_nosnoop_i), 
-    .mwr_wrr_cnt_i(mwr_wrr_cnt_i), 
     .cfg_msi_enable_i(cfg_msi_enable_i), 
     .cfg_interrupt_n_o(cfg_interrupt_n_o), 
     .cfg_interrupt_assert_n_o(cfg_interrupt_assert_n_o), 
@@ -136,8 +134,7 @@ BMD_TX_ENGINE uut (
     .cfg_phant_func_supported_i(cfg_phant_func_supported_i), 
     .xy_buf_addr_o(xy_buf_addr_o), 
     .xy_buf_dat_i(xy_buf_dat_i), 
-    .wdma_irq_i(wdma_irq_i),
-    .timeframe_end_i(timeframe_end_i)
+    .wdma_irq_i(wdma_irq_i)
 );
 
 reg [63:0]      dina;
@@ -147,9 +144,7 @@ reg             wea;
 
 wire [63:0]     doutb;
 initial begin
-    fofb_node_buffer[15] = 1'b1;
-    fofb_node_buffer[17] = 1'b1;
-    fofb_node_buffer[144] = 1'b1;
+    fofb_node_buffer = '1;
 end
 
 reg [7:0] xy_buf_addr_prev;
@@ -178,11 +173,13 @@ fofb_cc_sdpbram
 
 initial begin
     wea = 0;
-    repeat(10) @(posedge clk);
+    addra = 0;
+    dina = 0;
+    repeat(100) @(posedge clk);
     for (i=0; i< 256; i=i+1) begin
         addra = i;
-        dina = i;
-        if (i==15 || i==17 || i==144)
+        dina = {32'(i), 32'(i)};
+        if (i==1 || i==2 || i==3)
             wea = 1;
         else
             wea = 0;
@@ -213,7 +210,7 @@ initial begin
     mwr_fbe_i = 0;
     mwr_addr_i = 0;
     mwr_tlp_tc_i = 0;
-    mwr_64b_en_i = 1;
+    mwr_64b_en_i = 0;
     mwr_phant_func_dis1_i = 0;
     mwr_up_addr_i = 8'hFF;
     mwr_relaxed_order_i = 0;
@@ -256,9 +253,9 @@ initial begin
     trn_tdst_dsc_n = 1;
     trn_tbuf_av = 0;
     @(negedge trn_tsof_n);
-    repeat(5) @(posedge clk);
+    repeat(1) @(posedge clk);
     trn_tdst_rdy_n = 1;
-    repeat(5) @(posedge clk);
+    repeat(2) @(posedge clk);
     trn_tdst_rdy_n = 0;
 end
 

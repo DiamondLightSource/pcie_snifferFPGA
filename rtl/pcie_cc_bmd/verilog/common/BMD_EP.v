@@ -93,7 +93,10 @@ module BMD_EP# (
     fofb_node_mask_i,
     fofb_dma_ok_o,
     fofb_rxlink_up_i,
-    fofb_rxlink_partner_i
+    fofb_rxlink_partner_i,
+    harderror_cnt_i,
+    softerror_cnt_i,
+    frameerror_cnt_i
 );
 
 input              clk;
@@ -177,6 +180,9 @@ input  [255:0]    fofb_node_mask_i;
 output            fofb_dma_ok_o;
 input             fofb_rxlink_up_i;
 input  [9:0]      fofb_rxlink_partner_i;
+input  [15: 0]    harderror_cnt_i;
+input  [15: 0]    softerror_cnt_i;
+input  [15: 0]    frameerror_cnt_i;
 
 wire   fofb_dma_ok_o = 1'b1;
 
@@ -370,7 +376,10 @@ EP_MEM (
     .next_wdma_valid_o          ( next_wdma_valid               ),
     .fofb_rxlink_up_i           ( fofb_rxlink_up_i              ),
     .fofb_rxlink_partner_i      ( fofb_rxlink_partner_i         ),
-    .fofb_cc_timeout_i          ( fofb_cc_timeout               )
+    .fofb_cc_timeout_i          ( fofb_cc_timeout               ),
+    .harderror_cnt_i            ( harderror_cnt_i               ),
+    .softerror_cnt_i            ( softerror_cnt_i               ),
+    .frameerror_cnt_i           ( frameerror_cnt_i              )
 );
 
 
@@ -476,7 +485,8 @@ BMD_TX_ENGINE EP_TX (
     .mwr_len_i                  ( mwr_len[9:0]                  ), // I [31:0]
     .mwr_count_i                ( mwr_count[15:0]               ), // I [31:0]
     .mwr_tlp_tc_i               ( mwr_tlp_tc_o                  ), // I [2:0]
-    .mwr_64b_en_i               ( mwr_64b_en_o                  ), // I
+    .mwr_64b_en_i               ( 1'b0                          ), // I
+//    .mwr_64b_en_i               ( mwr_64b_en_o                  ), // I
     .mwr_phant_func_dis1_i      ( 1'b1                          ), // I
     .mwr_up_addr_i              ( wdma_addr[39:32]              ), // I [7:0]
     .mwr_lbe_i                  ( 4'hF                          ),

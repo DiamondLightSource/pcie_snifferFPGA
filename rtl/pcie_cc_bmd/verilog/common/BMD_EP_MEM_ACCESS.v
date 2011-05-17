@@ -119,7 +119,10 @@ module BMD_EP_MEM_ACCESS#
     next_wdma_valid_o,
     fofb_rxlink_up_i,
     fofb_rxlink_partner_i,
-    fofb_cc_timeout_i
+    fofb_cc_timeout_i,
+    harderror_cnt_i,
+    softerror_cnt_i,
+    frameerror_cnt_i
 );
 
 input            clk;
@@ -209,6 +212,9 @@ output           next_wdma_valid_o;
 input            fofb_rxlink_up_i;
 input  [9:0]     fofb_rxlink_partner_i;
 input            fofb_cc_timeout_i;
+input  [15: 0]   harderror_cnt_i;
+input  [15: 0]   softerror_cnt_i;
+input  [15: 0]   frameerror_cnt_i;
 
 
 wire [31:0]      mem_rd_data;
@@ -388,7 +394,10 @@ BMD_EP_MEM# (
     .next_wdma_valid_o          ( next_wdma_valid_o             ),
     .fofb_rxlink_up_i           ( fofb_rxlink_up_i              ),
     .fofb_rxlink_partner_i      ( fofb_rxlink_partner_i         ),
-    .fofb_cc_timeout_i          ( fofb_cc_timeout_i             )
+    .fofb_cc_timeout_i          ( fofb_cc_timeout_i             ),
+    .harderror_cnt_i            ( harderror_cnt_i               ),
+    .softerror_cnt_i            ( softerror_cnt_i               ),
+    .frameerror_cnt_i           ( frameerror_cnt_i              )
 );
 
 endmodule

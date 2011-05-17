@@ -173,6 +173,9 @@ wire [255:0]            fofb_node_mask;
 wire                    fofb_dma_ok;
 wire                    fofb_rxlink_up;
 wire [9:0]              fofb_rxlink_partner;
+wire [15: 0]            harderror_cnt;
+wire [15: 0]            softerror_cnt;
+wire [15: 0]            frameerror_cnt;
 
 `ifdef PCIE
 /*
@@ -283,9 +286,11 @@ pci_exp_64b_app app (
     .fofb_node_mask_i           ( fofb_node_mask            ),
     .fofb_dma_ok_o              ( fofb_dma_ok               ),
     .fofb_rxlink_up_i           ( fofb_rxlink_up            ),
-    .fofb_rxlink_partner_i      ( fofb_rxlink_partner       )
+    .fofb_rxlink_partner_i      ( fofb_rxlink_partner       ),
+    .harderror_cnt_i            ( harderror_cnt             ),
+    .softerror_cnt_i            ( softerror_cnt             ),
+    .frameerror_cnt_i           ( frameerror_cnt            )
 );
-
 
 /*
  * Xilinx Endpoint Core
@@ -446,8 +451,11 @@ CC (
     .timeframe_end_rise_o       ( timeframe_end_rise        ),
     .fofb_dma_ok_i              ( fofb_dma_ok               ),
     .fofb_node_mask_o           ( fofb_node_mask            ),
-    .fofb_rxlink_up_o           ( fofb_rxlink_up            ),
-    .fofb_rxlink_partner_o      ( fofb_rxlink_partner       )
+    .fofb_rxlink_up_o           ( ), //fofb_rxlink_up            ),
+    .fofb_rxlink_partner_o      ( ), //fofb_rxlink_partner       ),
+    .harderror_cnt_o            ( ), //harderror_cnt             ),
+    .softerror_cnt_o            ( ), //softerror_cnt             ),
+    .frameerror_cnt_o           ( ) //frameerror_cnt            )
 );
 
 `endif

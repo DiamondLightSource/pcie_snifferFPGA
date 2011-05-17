@@ -521,10 +521,10 @@ always @ ( posedge clk ) begin
                     else begin
                         trn_td           <= trn_data;
                         trn_trem_n       <= 8'hFF;
-                        cur_mwr_dw_count <= cur_mwr_dw_count - 2'h2; 
+                        cur_mwr_dw_count <= cur_mwr_dw_count - 2'h2;
                         bmd_64_tx_state  <= `BMD_64_TX_MWR_QWN;
                     end
-                end 
+                end
                 else if (!trn_tdst_dsc_n) begin
                     bmd_64_tx_state     <= `BMD_64_TX_RST_STATE;
                     trn_tsrc_dsc_n      <= 1'b0;
@@ -583,42 +583,43 @@ end
 /*
  * Chipscope Interface
  */
-//wire [35:0]     control0;
-//wire [159:0]    data;
-//wire [7:0]      trig;
-//
-//icon i_icon (
-//    .control0                   ( control0                  )
-//);
-//
-//ila i_ila (
-//    .control                    ( control0                  ),
-//    .clk                        ( clk                       ),
-//    .data                       ( data                      ),
-//    .trig0                      ( trig                      )
-//);
-//
-//assign trig[0] = init_rst_i;
-//assign trig[1] = mwr_start_i;
-//assign trig[7:2] = 0;
-//
-//assign data[63:0]   = trn_td;
-//assign data[71:64]  = trn_trem_n;
-//assign data[72]     = trn_tsof_n;
-//assign data[73]     = trn_teof_n;
-//assign data[74]     = trn_tsrc_rdy_n;
-//assign data[75]     = trn_tsrc_dsc_n;
-//assign data[76]     = trn_tdst_rdy_n;
-//assign data[77]     = trn_tdst_dsc_n;
-//assign data[78]     = mwr_start_i;
-//assign data[79]     = mwr_done_o;
-//assign data[80]     = cfg_bm_en;
-//assign data[96:81]  = rmwr_count;
-//assign data[106:97] = cur_mwr_dw_count;
-//assign data[122:107] = cur_wr_count;
-//assign data[126:123] = trn_tbuf_av;
-//assign data[135:127] = bmd_64_tx_state;
-//assign data[136]     = mwr_64b_en_i;
+/*
+wire [35:0]     control0;
+wire [159:0]    data;
+wire [7:0]      trig;
 
+icon i_icon (
+    .control0                   ( control0                  )
+);
+
+ila i_ila (
+    .control                    ( control0                  ),
+    .clk                        ( clk                       ),
+    .data                       ( data                      ),
+    .trig0                      ( trig                      )
+);
+
+assign trig[0] = init_rst_i;
+assign trig[1] = mwr_start_i;
+assign trig[7:2] = 0;
+
+assign data[63:0]   = trn_td;
+assign data[71:64]  = trn_trem_n;
+assign data[72]     = trn_tsof_n;
+assign data[73]     = trn_teof_n;
+assign data[74]     = trn_tsrc_rdy_n;
+assign data[75]     = trn_tsrc_dsc_n;
+assign data[76]     = trn_tdst_rdy_n;
+assign data[77]     = trn_tdst_dsc_n;
+assign data[78]     = mwr_start_i;
+assign data[79]     = mwr_done_o;
+assign data[80]     = cfg_bm_en;
+assign data[96:81]  = rmwr_count;
+assign data[106:97] = cur_mwr_dw_count;
+assign data[122:107] = cur_wr_count;
+assign data[126:123] = trn_tbuf_av;
+assign data[135:127] = bmd_64_tx_state;
+assign data[136]     = mwr_64b_en_i;
+*/
 endmodule // BMD_64_TX_ENGINE
 

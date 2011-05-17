@@ -1,4 +1,4 @@
-PATH := /dls_sw/apps/FPGA/Questasim/questasim/linux:$(PATH)
+PATH := /dls_sw/apps/FPGA/Questa/10.0/questasim/bin:$(PATH)
 
 CMDLINE ?= false	# Run modelsim on command line with -c flag
 DUMPVCD ?=			# Dump waveforms into .vcd file with +dump_all flag 
@@ -24,10 +24,10 @@ compile:
 	vlog -work work ../../../rtl/pcie_cc_bmd/verilog/common/BMD_INTR_CTRL.v
 	vlog -work work ../../../rtl/pcie_cc_bmd/verilog/BMD_64_TX_ENGINE.v
 	vlog -work work ../bench/bmd_tx_engine_tb.v
-	vlog -work work /dls_sw/apps/FPGA/Xilinx10.1i/ISE/verilog/src/glbl.v
+	vlog -work work /dls_sw/apps/FPGA/Xilinx/13.1/ISE_DS/ISE/verilog/src/glbl.v
 
 sim:
-	vsim $(CMD_FLAG) -L work -L secureip -L unisims_ver $(DOFILE) work.bmd_tx_engine_tb glbl
+	vsim -novopt $(CMD_FLAG) -L work -L secureip -L unisims_ver $(DOFILE) work.bmd_tx_engine_tb glbl
 
 all: clean worklib workmap compile sim
 

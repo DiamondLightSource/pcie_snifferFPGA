@@ -76,7 +76,10 @@ module BMD_EP_MEM# (
     next_wdma_valid_o,
     fofb_rxlink_up_i,
     fofb_rxlink_partner_i,
-    fofb_cc_timeout_i
+    fofb_cc_timeout_i,
+    harderror_cnt_i,
+    softerror_cnt_i,
+    frameerror_cnt_i
 );
 
 input             clk;
@@ -151,6 +154,9 @@ output              next_wdma_valid_o;
 input               fofb_rxlink_up_i;
 input  [9:0]        fofb_rxlink_partner_i;
 input               fofb_cc_timeout_i;
+input  [15: 0]      harderror_cnt_i;
+input  [15: 0]      softerror_cnt_i;
+input  [15: 0]      frameerror_cnt_i;
 
 reg [31:0]          fai_cfg_val_o;
 reg                 mwr_stop_o;
@@ -460,12 +466,30 @@ always @(posedge clk ) begin
                              4'b0, wdma_status_i};  // [7:0]
             end
 
-            // 88-8CH : Reg # 34
+            // 88-8BH : Reg # 34
             // IRQ Response Interval Counter
-            7'b100010: begin 
+            7'b100010: begin
                  rd_d_o <= { 8'h0,
                              5'h0,fofb_rxlink_partner_i,
                              6'h0, fofb_cc_timeout_i, fofb_rxlink_up_i };
+            end
+
+            // 8C-8F : Reg # 35
+            // Frame error cnt
+            7'b100011: begin
+                rd_d_o <= {16'h0, frameerror_cnt_i};
+            end
+
+            // 90-93 : Reg # 36
+            // Soft error cnt
+            7'b100100: begin
+                rd_d_o <= {16'h0, softerror_cnt_i};
+            end
+
+            // 94-97 : Reg # 37
+            // Hard error cnt
+            7'b100101: begin
+                rd_d_o <= {16'h0, harderror_cnt_i};
             end
 
             default: begin

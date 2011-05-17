@@ -95,7 +95,6 @@ NET "sys_clk_c"                                      PERIOD = 10ns;
 
 NET "ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/gt_refclk_out" TNM_NET = "MGTCLK" ;
 
-
 TIMESPEC "TS_MGTCLK"  = PERIOD "MGTCLK" 100.00 MHz HIGH 50 % ;
 
 ###############################################################################
