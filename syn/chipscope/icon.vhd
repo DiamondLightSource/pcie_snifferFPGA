@@ -1,13 +1,13 @@
 --------------------------------------------------------------------------------
--- Copyright (c) 1995-2008 Xilinx, Inc.  All rights reserved.
+-- Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
 --------------------------------------------------------------------------------
 --   ____  ____
 --  /   /\/   /
 -- /___/  \  /    Vendor: Xilinx
--- \   \   \/     Version: K.39
+-- \   \   \/     Version: O.40d
 --  \   \         Application: netgen
 --  /   /         Filename: icon.vhd
--- /___/   /\     Timestamp: Sat Oct 10 09:52:59 2009
+-- /___/   /\     Timestamp: Mon May 23 16:00:27 2011
 -- \   \  /  \ 
 --  \___\/\___\
 --             
@@ -17,7 +17,7 @@
 -- Output file	: /home/iu42/MyProjects/FPGADevelopment/PCI-E/ml555/dma_demo_x4/chipscope/tmp/_cg/icon.vhd
 -- # of Entities	: 1
 -- Design Name	: icon
--- Xilinx	: /dls_sw/apps/FPGA/Xilinx10.1i/ISE
+-- Xilinx	: /dls_sw/apps/FPGA/Xilinx/13.1/ISE_DS/ISE/
 --             
 -- Purpose:    
 --     This VHDL netlist is a verification model and uses simulation 
@@ -27,7 +27,7 @@
 --     with supported simulation tools.
 --             
 -- Reference:  
---     Development System Reference Guide, Chapter 23
+--     Command Line Tools User Guide, Chapter 23
 --     Synthesis and Simulation Design Guide, Chapter 6
 --             
 --------------------------------------------------------------------------------
@@ -47,9 +47,14 @@ entity icon is
 end icon;
 
 architecture STRUCTURE of icon is
+  component icon_bscan_bufg
+    port (
+      DRCK_LOCAL_I : in STD_LOGIC := 'X'; 
+      DRCK_LOCAL_O : out STD_LOGIC 
+    );
+  end component;
   signal N1 : STD_LOGIC; 
   signal U0_U_ICON_I_YES_BSCAN_U_BS_iDRCK_LOCAL : STD_LOGIC; 
-  signal U0_U_ICON_TDI_OUT : STD_LOGIC; 
   signal U0_U_ICON_U_CMD_iSEL_n : STD_LOGIC; 
   signal U0_U_ICON_U_CMD_iTARGET_CE : STD_LOGIC; 
   signal U0_U_ICON_U_CTRL_OUT_iDATA_VALID : STD_LOGIC; 
@@ -71,12 +76,13 @@ architecture STRUCTURE of icon is
   signal U0_U_ICON_iSEL : STD_LOGIC; 
   signal U0_U_ICON_iSEL_n : STD_LOGIC; 
   signal U0_U_ICON_iSYNC : STD_LOGIC; 
+  signal U0_U_ICON_iTDI : STD_LOGIC; 
   signal U0_U_ICON_iTDO : STD_LOGIC; 
   signal U0_U_ICON_iTDO_next : STD_LOGIC; 
   signal U0_iSHIFT_OUT : STD_LOGIC; 
   signal U0_iUPDATE_OUT : STD_LOGIC; 
-  signal NLW_U0_U_ICON_I_YES_BSCAN_U_BS_I_V5_U_BS_CAPTURE_UNCONNECTED : STD_LOGIC; 
-  signal NLW_U0_U_ICON_I_YES_BSCAN_U_BS_I_V5_U_BS_RESET_UNCONNECTED : STD_LOGIC; 
+  signal NLW_U0_U_ICON_I_YES_BSCAN_U_BS_I_V5_ISYN_I_USE_SOFTBSCAN_EQ0_U_BS_CAPTURE_UNCONNECTED : STD_LOGIC; 
+  signal NLW_U0_U_ICON_I_YES_BSCAN_U_BS_I_V5_ISYN_I_USE_SOFTBSCAN_EQ0_U_BS_RESET_UNCONNECTED : STD_LOGIC; 
   signal NLW_U0_U_ICON_U_CMD_U_CORE_ID_SEL_I4_FI_1_U_LUT_O_UNCONNECTED : STD_LOGIC; 
   signal NLW_U0_U_ICON_U_CMD_U_CORE_ID_SEL_I4_FI_2_U_LUT_O_UNCONNECTED : STD_LOGIC; 
   signal NLW_U0_U_ICON_U_CMD_U_CORE_ID_SEL_I4_FI_3_U_LUT_O_UNCONNECTED : STD_LOGIC; 
@@ -99,9 +105,6 @@ architecture STRUCTURE of icon is
   signal U0_U_ICON_U_STAT_iSTAT : STD_LOGIC_VECTOR ( 3 downto 0 ); 
   signal U0_U_ICON_U_STAT_iSTAT_CNT : STD_LOGIC_VECTOR ( 5 downto 0 ); 
   signal U0_U_ICON_U_SYNC_iSYNC_WORD : STD_LOGIC_VECTOR ( 6 downto 0 ); 
-  signal U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_MUXAB : STD_LOGIC_VECTOR ( 1 downto 0 ); 
-  signal U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8A_MUXAB : STD_LOGIC_VECTOR ( 1 downto 0 ); 
-  signal U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8B_MUXAB : STD_LOGIC_VECTOR ( 1 downto 0 ); 
   signal U0_U_ICON_iCOMMAND_GRP : STD_LOGIC_VECTOR ( 1 downto 0 ); 
   signal U0_U_ICON_iCOMMAND_SEL : STD_LOGIC_VECTOR ( 15 downto 0 ); 
   signal U0_U_ICON_iCORE_ID : STD_LOGIC_VECTOR ( 3 downto 0 ); 
@@ -115,569 +118,35 @@ begin
     port map (
       P => N1
     );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_5_U_FDRE : FDRE
+  U0_U_ICON_U_TDI_reg : FDE
     generic map(
       INIT => '0'
     )
     port map (
       C => CONTROL0(0),
       CE => N1,
-      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(5),
-      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
-      Q => U0_U_ICON_U_STAT_iSTAT_CNT(5)
+      D => U0_U_ICON_iTDI,
+      Q => CONTROL0(1)
     );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_4_U_FDRE : FDRE
+  U0_U_ICON_U_TDO_reg : FDE
     generic map(
       INIT => '0'
     )
     port map (
       C => CONTROL0(0),
       CE => N1,
-      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(4),
-      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
-      Q => U0_U_ICON_U_STAT_iSTAT_CNT(4)
+      D => U0_U_ICON_iTDO_next,
+      Q => U0_U_ICON_iTDO
     );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_3_U_FDRE : FDRE
+  U0_U_ICON_U_iDATA_CMD : FDC
     generic map(
       INIT => '0'
     )
     port map (
-      C => CONTROL0(0),
-      CE => N1,
-      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(3),
-      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
-      Q => U0_U_ICON_U_STAT_iSTAT_CNT(3)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_2_U_FDRE : FDRE
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      CE => N1,
-      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(2),
-      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
-      Q => U0_U_ICON_U_STAT_iSTAT_CNT(2)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_1_U_FDRE : FDRE
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      CE => N1,
-      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(1),
-      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
-      Q => U0_U_ICON_U_STAT_iSTAT_CNT(1)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_0_U_FDRE : FDRE
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      CE => N1,
-      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(0),
-      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
-      Q => U0_U_ICON_U_STAT_iSTAT_CNT(0)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_5_U_LUT : LUT1
-    generic map(
-      INIT => X"2"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(5),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(5)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_5_U_XORCY : XORCY
-    port map (
-      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(5),
-      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(5),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(5)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_4_U_LUT : LUT1
-    generic map(
-      INIT => X"2"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(4),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(4)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_4_GnH_U_MUXCY : MUXCY_L
-    port map (
-      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(4),
-      DI => CONTROL0(2),
-      S => U0_U_ICON_U_STAT_U_STAT_CNT_S(4),
-      LO => U0_U_ICON_U_STAT_U_STAT_CNT_CI(5)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_4_U_XORCY : XORCY
-    port map (
-      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(4),
-      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(4),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(4)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_3_U_LUT : LUT1
-    generic map(
-      INIT => X"2"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(3),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(3)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_3_GnH_U_MUXCY : MUXCY_L
-    port map (
-      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(3),
-      DI => CONTROL0(2),
-      S => U0_U_ICON_U_STAT_U_STAT_CNT_S(3),
-      LO => U0_U_ICON_U_STAT_U_STAT_CNT_CI(4)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_3_U_XORCY : XORCY
-    port map (
-      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(3),
-      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(3),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(3)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_2_U_LUT : LUT1
-    generic map(
-      INIT => X"2"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(2),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(2)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_2_GnH_U_MUXCY : MUXCY_L
-    port map (
-      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(2),
-      DI => CONTROL0(2),
-      S => U0_U_ICON_U_STAT_U_STAT_CNT_S(2),
-      LO => U0_U_ICON_U_STAT_U_STAT_CNT_CI(3)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_2_U_XORCY : XORCY
-    port map (
-      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(2),
-      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(2),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(2)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_1_U_LUT : LUT1
-    generic map(
-      INIT => X"2"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(1),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(1)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_1_GnH_U_MUXCY : MUXCY_L
-    port map (
-      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(1),
-      DI => CONTROL0(2),
-      S => U0_U_ICON_U_STAT_U_STAT_CNT_S(1),
-      LO => U0_U_ICON_U_STAT_U_STAT_CNT_CI(2)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_1_U_XORCY : XORCY
-    port map (
-      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(1),
-      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(1),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(1)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_0_U_LUT : LUT1
-    generic map(
-      INIT => X"2"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(0),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(0)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_0_GnH_U_MUXCY : MUXCY_L
-    port map (
-      CI => N1,
-      DI => CONTROL0(2),
-      S => U0_U_ICON_U_STAT_U_STAT_CNT_S(0),
-      LO => U0_U_ICON_U_STAT_U_STAT_CNT_CI(1)
-    );
-  U0_U_ICON_U_STAT_U_STAT_CNT_G_0_U_XORCY : XORCY
-    port map (
-      CI => N1,
-      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(0),
-      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(0)
-    );
-  U0_U_ICON_U_CTRL_OUT_U_DATA_VALID : LUT2
-    generic map(
-      INIT => X"8"
-    )
-    port map (
-      I0 => U0_U_ICON_iSYNC,
-      I1 => U0_iSHIFT_OUT,
-      O => U0_U_ICON_U_CTRL_OUT_iDATA_VALID
-    );
-  U0_U_ICON_U_CTRL_OUT_U_CMDGRP0 : LUT2
-    generic map(
-      INIT => X"1"
-    )
-    port map (
-      I0 => U0_U_ICON_iCOMMAND_GRP(0),
-      I1 => U0_U_ICON_iCOMMAND_GRP(1),
-      O => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0)
-    );
-  U0_U_ICON_U_CTRL_OUT_U_CMDGRP1 : LUT2
-    generic map(
-      INIT => X"2"
-    )
-    port map (
-      I0 => U0_U_ICON_iCOMMAND_GRP(0),
-      I1 => U0_U_ICON_iCOMMAND_GRP(1),
-      O => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_15_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(15),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(19)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_15_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(15),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(35)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_14_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(14),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(18)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_14_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(14),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(34)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_13_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(13),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(17)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_13_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(13),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(33)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_12_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(12),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(16)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_12_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(12),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(32)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_11_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(11),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(15)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_11_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(11),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(31)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_10_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(10),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(14)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_10_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(10),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(30)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_9_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(9),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(13)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_9_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(9),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(29)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_8_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(8),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(12)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_8_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(8),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(28)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_7_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(7),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(11)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_7_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(7),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(27)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_6_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(6),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(10)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_6_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(6),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(26)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_5_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(5),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(9)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_5_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(5),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(25)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_4_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(4),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(8)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_4_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(4),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(24)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_3_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(3),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(7)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_3_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(3),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(23)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_2_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(2),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(6)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_2_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(2),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(22)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_1_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(1),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(5)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_1_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(1),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(21)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_0_U_LCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(0),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
-      O => CONTROL0(4)
-    );
-  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_0_U_HCE : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(0),
-      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
-      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
-      O => CONTROL0(20)
+      C => U0_iUPDATE_OUT,
+      CLR => U0_U_ICON_iSEL_n,
+      D => U0_U_ICON_iDATA_CMD_n,
+      Q => U0_U_ICON_iDATA_CMD
     );
   U0_U_ICON_U_iSEL_n : INV
     port map (
@@ -689,24 +158,24 @@ begin
       I => U0_U_ICON_iDATA_CMD,
       O => U0_U_ICON_iDATA_CMD_n
     );
-  U0_U_ICON_I_YES_BSCAN_U_BS_I_V5_U_BS : BSCAN_VIRTEX5
+  U0_U_ICON_I_YES_BSCAN_U_BS_I_V5_ISYN_I_USE_SOFTBSCAN_EQ0_U_BS : BSCAN_VIRTEX5
     generic map(
       JTAG_CHAIN => 1
     )
     port map (
       TDO => U0_U_ICON_iTDO,
-      CAPTURE => NLW_U0_U_ICON_I_YES_BSCAN_U_BS_I_V5_U_BS_CAPTURE_UNCONNECTED,
+      CAPTURE => NLW_U0_U_ICON_I_YES_BSCAN_U_BS_I_V5_ISYN_I_USE_SOFTBSCAN_EQ0_U_BS_CAPTURE_UNCONNECTED,
       DRCK => U0_U_ICON_I_YES_BSCAN_U_BS_iDRCK_LOCAL,
-      RESET => NLW_U0_U_ICON_I_YES_BSCAN_U_BS_I_V5_U_BS_RESET_UNCONNECTED,
+      RESET => NLW_U0_U_ICON_I_YES_BSCAN_U_BS_I_V5_ISYN_I_USE_SOFTBSCAN_EQ0_U_BS_RESET_UNCONNECTED,
       SEL => U0_U_ICON_iSEL,
       SHIFT => U0_iSHIFT_OUT,
-      TDI => U0_U_ICON_TDI_OUT,
+      TDI => U0_U_ICON_iTDI,
       UPDATE => U0_iUPDATE_OUT
     );
-  U0_U_ICON_I_YES_BSCAN_U_BS_I_BUFG_U_BUFG : BUFG
+  U0_U_ICON_I_YES_BSCAN_U_BS_I_USE_SOFTBSCAN_EQ0_I_USE_XST_TCK_WORKAROUND_EQ1_U_ICON_BSCAN_BUFG : icon_bscan_bufg
     port map (
-      I => U0_U_ICON_I_YES_BSCAN_U_BS_iDRCK_LOCAL,
-      O => CONTROL0(0)
+      DRCK_LOCAL_I => U0_U_ICON_I_YES_BSCAN_U_BS_iDRCK_LOCAL,
+      DRCK_LOCAL_O => CONTROL0(0)
     );
   U0_U_ICON_U_SYNC_U_GOT_SYNC : LUT2
     generic map(
@@ -743,6 +212,466 @@ begin
     port map (
       I => U0_U_ICON_iDATA_CMD,
       O => U0_U_ICON_U_SYNC_iDATA_CMD_n
+    );
+  U0_U_ICON_U_SYNC_U_SYNC : FDRE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      CE => U0_U_ICON_U_SYNC_iGOT_SYNC,
+      D => N1,
+      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
+      Q => U0_U_ICON_iSYNC
+    );
+  U0_U_ICON_U_SYNC_G_SYNC_WORD_0_I_NE0_U_FDR : FDR
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      D => U0_U_ICON_U_SYNC_iSYNC_WORD(1),
+      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
+      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(0)
+    );
+  U0_U_ICON_U_SYNC_G_SYNC_WORD_1_I_NE0_U_FDR : FDR
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      D => U0_U_ICON_U_SYNC_iSYNC_WORD(2),
+      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
+      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(1)
+    );
+  U0_U_ICON_U_SYNC_G_SYNC_WORD_2_I_NE0_U_FDR : FDR
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      D => U0_U_ICON_U_SYNC_iSYNC_WORD(3),
+      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
+      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(2)
+    );
+  U0_U_ICON_U_SYNC_G_SYNC_WORD_3_I_NE0_U_FDR : FDR
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      D => U0_U_ICON_U_SYNC_iSYNC_WORD(4),
+      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
+      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(3)
+    );
+  U0_U_ICON_U_SYNC_G_SYNC_WORD_4_I_NE0_U_FDR : FDR
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      D => U0_U_ICON_U_SYNC_iSYNC_WORD(5),
+      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
+      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(4)
+    );
+  U0_U_ICON_U_SYNC_G_SYNC_WORD_5_I_NE0_U_FDR : FDR
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      D => U0_U_ICON_U_SYNC_iSYNC_WORD(6),
+      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
+      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(5)
+    );
+  U0_U_ICON_U_SYNC_G_SYNC_WORD_6_I_EQ0_U_FDR : FDR
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      D => CONTROL0(1),
+      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
+      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(6)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_0_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(0),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(20)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_0_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(0),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(4)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_1_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(1),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(21)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_1_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(1),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(5)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_2_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(2),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(22)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_2_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(2),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(6)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_3_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(3),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(23)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_3_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(3),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(7)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_4_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(4),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(24)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_4_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(4),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(8)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_5_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(5),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(25)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_5_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(5),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(9)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_6_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(6),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(26)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_6_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(6),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(10)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_7_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(7),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(27)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_7_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(7),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(11)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_8_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(8),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(28)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_8_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(8),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(12)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_9_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(9),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(29)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_9_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(9),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(13)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_10_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(10),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(30)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_10_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(10),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(14)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_11_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(11),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(31)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_11_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(11),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(15)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_12_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(12),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(32)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_12_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(12),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(16)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_13_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(13),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(33)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_13_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(13),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(17)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_14_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(14),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(34)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_14_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(14),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(18)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_15_U_HCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(15),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1),
+      O => CONTROL0(35)
+    );
+  U0_U_ICON_U_CTRL_OUT_F_NCP_0_F_CMD_15_U_LCE : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_CTRL_OUT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(15),
+      I2 => U0_U_ICON_iCORE_ID_SEL_0_Q,
+      I3 => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0),
+      O => CONTROL0(19)
+    );
+  U0_U_ICON_U_CTRL_OUT_U_CMDGRP1 : LUT2
+    generic map(
+      INIT => X"2"
+    )
+    port map (
+      I0 => U0_U_ICON_iCOMMAND_GRP(0),
+      I1 => U0_U_ICON_iCOMMAND_GRP(1),
+      O => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(1)
+    );
+  U0_U_ICON_U_CTRL_OUT_U_CMDGRP0 : LUT2
+    generic map(
+      INIT => X"1"
+    )
+    port map (
+      I0 => U0_U_ICON_iCOMMAND_GRP(0),
+      I1 => U0_U_ICON_iCOMMAND_GRP(1),
+      O => U0_U_ICON_U_CTRL_OUT_iCOMMAND_GRP_SEL(0)
+    );
+  U0_U_ICON_U_CTRL_OUT_U_DATA_VALID : LUT2
+    generic map(
+      INIT => X"8"
+    )
+    port map (
+      I0 => U0_U_ICON_iSYNC,
+      I1 => U0_iSHIFT_OUT,
+      O => U0_U_ICON_U_CTRL_OUT_iDATA_VALID
     );
   U0_U_ICON_U_CMD_U_CORE_ID_SEL_I4_FI_0_U_LUT : LUT4
     generic map(
@@ -1110,289 +1039,6 @@ begin
       I => U0_U_ICON_iSEL,
       O => U0_U_ICON_U_CMD_iSEL_n
     );
-  U0_U_ICON_U_STAT_U_TDO_next : MUXF6
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_LOW,
-      I1 => U0_U_ICON_U_STAT_iSTAT_HIGH,
-      S => U0_U_ICON_U_STAT_iSTAT_CNT(5),
-      O => U0_U_ICON_U_STAT_iTDO_next
-    );
-  U0_U_ICON_U_STAT_U_STAT_LOW : MUXF5
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT(0),
-      I1 => U0_U_ICON_U_STAT_iSTAT(1),
-      S => U0_U_ICON_U_STAT_iSTAT_CNT(4),
-      O => U0_U_ICON_U_STAT_iSTAT_LOW
-    );
-  U0_U_ICON_U_STAT_U_STAT_HIGH : MUXF5
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT(2),
-      I1 => U0_U_ICON_U_STAT_iSTAT(3),
-      S => U0_U_ICON_U_STAT_iSTAT_CNT(4),
-      O => U0_U_ICON_U_STAT_iSTAT_HIGH
-    );
-  U0_U_ICON_U_STAT_F_STAT_0_U_STAT : LUT4
-    generic map(
-      INIT => X"0101"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(0),
-      I1 => U0_U_ICON_U_STAT_iSTAT_CNT(1),
-      I2 => U0_U_ICON_U_STAT_iSTAT_CNT(2),
-      I3 => U0_U_ICON_U_STAT_iSTAT_CNT(3),
-      O => U0_U_ICON_U_STAT_iSTAT(0)
-    );
-  U0_U_ICON_U_STAT_F_STAT_1_U_STAT : LUT4
-    generic map(
-      INIT => X"A101"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(0),
-      I1 => U0_U_ICON_U_STAT_iSTAT_CNT(1),
-      I2 => U0_U_ICON_U_STAT_iSTAT_CNT(2),
-      I3 => U0_U_ICON_U_STAT_iSTAT_CNT(3),
-      O => U0_U_ICON_U_STAT_iSTAT(1)
-    );
-  U0_U_ICON_U_STAT_F_STAT_2_U_STAT : LUT4
-    generic map(
-      INIT => X"2103"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(0),
-      I1 => U0_U_ICON_U_STAT_iSTAT_CNT(1),
-      I2 => U0_U_ICON_U_STAT_iSTAT_CNT(2),
-      I3 => U0_U_ICON_U_STAT_iSTAT_CNT(3),
-      O => U0_U_ICON_U_STAT_iSTAT(2)
-    );
-  U0_U_ICON_U_STAT_F_STAT_3_U_STAT : LUT4
-    generic map(
-      INIT => X"1610"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(0),
-      I1 => U0_U_ICON_U_STAT_iSTAT_CNT(1),
-      I2 => U0_U_ICON_U_STAT_iSTAT_CNT(2),
-      I3 => U0_U_ICON_U_STAT_iSTAT_CNT(3),
-      O => U0_U_ICON_U_STAT_iSTAT(3)
-    );
-  U0_U_ICON_U_STAT_U_STATCMD_n : INV
-    port map (
-      I => U0_U_ICON_U_STAT_iSTATCMD_CE,
-      O => U0_U_ICON_U_STAT_iSTATCMD_CE_n
-    );
-  U0_U_ICON_U_STAT_U_STATCMD : LUT4
-    generic map(
-      INIT => X"8000"
-    )
-    port map (
-      I0 => U0_U_ICON_U_STAT_iDATA_VALID,
-      I1 => U0_U_ICON_iCOMMAND_SEL(0),
-      I2 => U0_U_ICON_iCORE_ID_SEL_15_Q,
-      I3 => U0_U_ICON_U_STAT_iCMD_GRP0_SEL,
-      O => U0_U_ICON_U_STAT_iSTATCMD_CE
-    );
-  U0_U_ICON_U_STAT_U_CMDGRP0 : LUT2
-    generic map(
-      INIT => X"1"
-    )
-    port map (
-      I0 => U0_U_ICON_iCOMMAND_GRP(0),
-      I1 => U0_U_ICON_iCOMMAND_GRP(1),
-      O => U0_U_ICON_U_STAT_iCMD_GRP0_SEL
-    );
-  U0_U_ICON_U_STAT_U_DATA_VALID : LUT2
-    generic map(
-      INIT => X"8"
-    )
-    port map (
-      I0 => U0_U_ICON_iSYNC,
-      I1 => U0_iSHIFT_OUT,
-      O => U0_U_ICON_U_STAT_iDATA_VALID
-    );
-  U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8A_YES_LUT6_U_MUXF7 : MUXF7
-    port map (
-      I0 => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8A_MUXAB(0),
-      I1 => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8A_MUXAB(1),
-      S => U0_U_ICON_iCORE_ID(2),
-      O => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_MUXAB(0)
-    );
-  U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8A_U_MUX4B_YES_LUT6_U_LUT6 : LUT6
-    generic map(
-      INIT => X"AAAAF0F0CCCCFF00"
-    )
-    port map (
-      I0 => CONTROL0(2),
-      I1 => CONTROL0(2),
-      I2 => CONTROL0(2),
-      I3 => CONTROL0(2),
-      I4 => U0_U_ICON_iCORE_ID(1),
-      I5 => U0_U_ICON_iCORE_ID(0),
-      O => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8A_MUXAB(1)
-    );
-  U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8A_U_MUX4A_YES_LUT6_U_LUT6 : LUT6
-    generic map(
-      INIT => X"AAAAF0F0CCCCFF00"
-    )
-    port map (
-      I0 => CONTROL0(2),
-      I1 => CONTROL0(2),
-      I2 => CONTROL0(2),
-      I3 => CONTROL0(3),
-      I4 => U0_U_ICON_iCORE_ID(1),
-      I5 => U0_U_ICON_iCORE_ID(0),
-      O => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8A_MUXAB(0)
-    );
-  U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8B_YES_LUT6_U_MUXF7 : MUXF7
-    port map (
-      I0 => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8B_MUXAB(0),
-      I1 => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8B_MUXAB(1),
-      S => U0_U_ICON_iCORE_ID(2),
-      O => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_MUXAB(1)
-    );
-  U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8B_U_MUX4B_YES_LUT6_U_LUT6 : LUT6
-    generic map(
-      INIT => X"AAAAF0F0CCCCFF00"
-    )
-    port map (
-      I0 => U0_U_ICON_iTDO_VEC(15),
-      I1 => CONTROL0(2),
-      I2 => CONTROL0(2),
-      I3 => CONTROL0(2),
-      I4 => U0_U_ICON_iCORE_ID(1),
-      I5 => U0_U_ICON_iCORE_ID(0),
-      O => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8B_MUXAB(1)
-    );
-  U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8B_U_MUX4A_YES_LUT6_U_LUT6 : LUT6
-    generic map(
-      INIT => X"AAAAF0F0CCCCFF00"
-    )
-    port map (
-      I0 => CONTROL0(2),
-      I1 => CONTROL0(2),
-      I2 => CONTROL0(2),
-      I3 => CONTROL0(2),
-      I4 => U0_U_ICON_iCORE_ID(1),
-      I5 => U0_U_ICON_iCORE_ID(0),
-      O => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_U_MUX8B_MUXAB(0)
-    );
-  U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_YES_LUT6_U_MUXF8 : MUXF8
-    port map (
-      I0 => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_MUXAB(0),
-      I1 => U0_U_ICON_U_TDO_MUX_YES_LUT6_U_CS_MUX_I4_U_MUX16_MUXAB(1),
-      S => U0_U_ICON_iCORE_ID(3),
-      O => U0_U_ICON_iTDO_next
-    );
-  U0_U_ICON_U_TDI_reg : FDE
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      CE => N1,
-      D => U0_U_ICON_TDI_OUT,
-      Q => CONTROL0(1)
-    );
-  U0_U_ICON_U_TDO_reg : FDE
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      CE => N1,
-      D => U0_U_ICON_iTDO_next,
-      Q => U0_U_ICON_iTDO
-    );
-  U0_U_ICON_U_iDATA_CMD : FDC
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => U0_iUPDATE_OUT,
-      CLR => U0_U_ICON_iSEL_n,
-      D => U0_U_ICON_iDATA_CMD_n,
-      Q => U0_U_ICON_iDATA_CMD
-    );
-  U0_U_ICON_U_SYNC_U_SYNC : FDRE
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      CE => U0_U_ICON_U_SYNC_iGOT_SYNC,
-      D => N1,
-      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
-      Q => U0_U_ICON_iSYNC
-    );
-  U0_U_ICON_U_SYNC_G_SYNC_WORD_0_I_NE0_U_FDR : FDR
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      D => U0_U_ICON_U_SYNC_iSYNC_WORD(1),
-      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
-      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(0)
-    );
-  U0_U_ICON_U_SYNC_G_SYNC_WORD_1_I_NE0_U_FDR : FDR
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      D => U0_U_ICON_U_SYNC_iSYNC_WORD(2),
-      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
-      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(1)
-    );
-  U0_U_ICON_U_SYNC_G_SYNC_WORD_2_I_NE0_U_FDR : FDR
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      D => U0_U_ICON_U_SYNC_iSYNC_WORD(3),
-      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
-      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(2)
-    );
-  U0_U_ICON_U_SYNC_G_SYNC_WORD_3_I_NE0_U_FDR : FDR
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      D => U0_U_ICON_U_SYNC_iSYNC_WORD(4),
-      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
-      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(3)
-    );
-  U0_U_ICON_U_SYNC_G_SYNC_WORD_4_I_NE0_U_FDR : FDR
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      D => U0_U_ICON_U_SYNC_iSYNC_WORD(5),
-      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
-      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(4)
-    );
-  U0_U_ICON_U_SYNC_G_SYNC_WORD_5_I_NE0_U_FDR : FDR
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      D => U0_U_ICON_U_SYNC_iSYNC_WORD(6),
-      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
-      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(5)
-    );
-  U0_U_ICON_U_SYNC_G_SYNC_WORD_6_I_EQ0_U_FDR : FDR
-    generic map(
-      INIT => '0'
-    )
-    port map (
-      C => CONTROL0(0),
-      D => CONTROL0(1),
-      R => U0_U_ICON_U_SYNC_iDATA_CMD_n,
-      Q => U0_U_ICON_U_SYNC_iSYNC_WORD(6)
-    );
   U0_U_ICON_U_CMD_G_TARGET_6_I_NE0_U_TARGET : FDCE
     generic map(
       INIT => '0'
@@ -1503,6 +1149,290 @@ begin
       D => CONTROL0(1),
       Q => U0_U_ICON_iCORE_ID(3)
     );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_5_U_FDRE : FDRE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      CE => N1,
+      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(5),
+      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
+      Q => U0_U_ICON_U_STAT_iSTAT_CNT(5)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_4_U_FDRE : FDRE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      CE => N1,
+      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(4),
+      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
+      Q => U0_U_ICON_U_STAT_iSTAT_CNT(4)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_3_U_FDRE : FDRE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      CE => N1,
+      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(3),
+      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
+      Q => U0_U_ICON_U_STAT_iSTAT_CNT(3)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_2_U_FDRE : FDRE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      CE => N1,
+      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(2),
+      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
+      Q => U0_U_ICON_U_STAT_iSTAT_CNT(2)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_1_U_FDRE : FDRE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      CE => N1,
+      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(1),
+      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
+      Q => U0_U_ICON_U_STAT_iSTAT_CNT(1)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_0_U_FDRE : FDRE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => CONTROL0(0),
+      CE => N1,
+      D => U0_U_ICON_U_STAT_U_STAT_CNT_D(0),
+      R => U0_U_ICON_U_STAT_iSTATCMD_CE_n,
+      Q => U0_U_ICON_U_STAT_iSTAT_CNT(0)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_5_U_LUT : LUT1
+    generic map(
+      INIT => X"2"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(5),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(5)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_5_U_XORCY : XORCY
+    port map (
+      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(5),
+      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(5),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(5)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_4_U_LUT : LUT1
+    generic map(
+      INIT => X"2"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(4),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(4)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_4_GnH_U_MUXCY : MUXCY_L
+    port map (
+      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(4),
+      DI => CONTROL0(2),
+      S => U0_U_ICON_U_STAT_U_STAT_CNT_S(4),
+      LO => U0_U_ICON_U_STAT_U_STAT_CNT_CI(5)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_4_U_XORCY : XORCY
+    port map (
+      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(4),
+      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(4),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(4)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_3_U_LUT : LUT1
+    generic map(
+      INIT => X"2"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(3),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(3)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_3_GnH_U_MUXCY : MUXCY_L
+    port map (
+      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(3),
+      DI => CONTROL0(2),
+      S => U0_U_ICON_U_STAT_U_STAT_CNT_S(3),
+      LO => U0_U_ICON_U_STAT_U_STAT_CNT_CI(4)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_3_U_XORCY : XORCY
+    port map (
+      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(3),
+      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(3),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(3)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_2_U_LUT : LUT1
+    generic map(
+      INIT => X"2"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(2),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(2)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_2_GnH_U_MUXCY : MUXCY_L
+    port map (
+      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(2),
+      DI => CONTROL0(2),
+      S => U0_U_ICON_U_STAT_U_STAT_CNT_S(2),
+      LO => U0_U_ICON_U_STAT_U_STAT_CNT_CI(3)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_2_U_XORCY : XORCY
+    port map (
+      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(2),
+      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(2),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(2)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_1_U_LUT : LUT1
+    generic map(
+      INIT => X"2"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(1),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(1)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_1_GnH_U_MUXCY : MUXCY_L
+    port map (
+      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(1),
+      DI => CONTROL0(2),
+      S => U0_U_ICON_U_STAT_U_STAT_CNT_S(1),
+      LO => U0_U_ICON_U_STAT_U_STAT_CNT_CI(2)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_1_U_XORCY : XORCY
+    port map (
+      CI => U0_U_ICON_U_STAT_U_STAT_CNT_CI(1),
+      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(1),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(1)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_0_U_LUT : LUT1
+    generic map(
+      INIT => X"2"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(0),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_S(0)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_0_GnH_U_MUXCY : MUXCY_L
+    port map (
+      CI => N1,
+      DI => CONTROL0(2),
+      S => U0_U_ICON_U_STAT_U_STAT_CNT_S(0),
+      LO => U0_U_ICON_U_STAT_U_STAT_CNT_CI(1)
+    );
+  U0_U_ICON_U_STAT_U_STAT_CNT_G_0_U_XORCY : XORCY
+    port map (
+      CI => N1,
+      LI => U0_U_ICON_U_STAT_U_STAT_CNT_S(0),
+      O => U0_U_ICON_U_STAT_U_STAT_CNT_D(0)
+    );
+  U0_U_ICON_U_STAT_U_TDO_next : MUXF6
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_LOW,
+      I1 => U0_U_ICON_U_STAT_iSTAT_HIGH,
+      S => U0_U_ICON_U_STAT_iSTAT_CNT(5),
+      O => U0_U_ICON_U_STAT_iTDO_next
+    );
+  U0_U_ICON_U_STAT_U_STAT_LOW : MUXF5
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT(0),
+      I1 => U0_U_ICON_U_STAT_iSTAT(1),
+      S => U0_U_ICON_U_STAT_iSTAT_CNT(4),
+      O => U0_U_ICON_U_STAT_iSTAT_LOW
+    );
+  U0_U_ICON_U_STAT_U_STAT_HIGH : MUXF5
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT(2),
+      I1 => U0_U_ICON_U_STAT_iSTAT(3),
+      S => U0_U_ICON_U_STAT_iSTAT_CNT(4),
+      O => U0_U_ICON_U_STAT_iSTAT_HIGH
+    );
+  U0_U_ICON_U_STAT_F_STAT_0_U_STAT : LUT4
+    generic map(
+      INIT => X"0101"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(0),
+      I1 => U0_U_ICON_U_STAT_iSTAT_CNT(1),
+      I2 => U0_U_ICON_U_STAT_iSTAT_CNT(2),
+      I3 => U0_U_ICON_U_STAT_iSTAT_CNT(3),
+      O => U0_U_ICON_U_STAT_iSTAT(0)
+    );
+  U0_U_ICON_U_STAT_F_STAT_1_U_STAT : LUT4
+    generic map(
+      INIT => X"D101"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(0),
+      I1 => U0_U_ICON_U_STAT_iSTAT_CNT(1),
+      I2 => U0_U_ICON_U_STAT_iSTAT_CNT(2),
+      I3 => U0_U_ICON_U_STAT_iSTAT_CNT(3),
+      O => U0_U_ICON_U_STAT_iSTAT(1)
+    );
+  U0_U_ICON_U_STAT_F_STAT_2_U_STAT : LUT4
+    generic map(
+      INIT => X"2100"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(0),
+      I1 => U0_U_ICON_U_STAT_iSTAT_CNT(1),
+      I2 => U0_U_ICON_U_STAT_iSTAT_CNT(2),
+      I3 => U0_U_ICON_U_STAT_iSTAT_CNT(3),
+      O => U0_U_ICON_U_STAT_iSTAT(2)
+    );
+  U0_U_ICON_U_STAT_F_STAT_3_U_STAT : LUT4
+    generic map(
+      INIT => X"1610"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iSTAT_CNT(0),
+      I1 => U0_U_ICON_U_STAT_iSTAT_CNT(1),
+      I2 => U0_U_ICON_U_STAT_iSTAT_CNT(2),
+      I3 => U0_U_ICON_U_STAT_iSTAT_CNT(3),
+      O => U0_U_ICON_U_STAT_iSTAT(3)
+    );
+  U0_U_ICON_U_STAT_U_STATCMD_n : INV
+    port map (
+      I => U0_U_ICON_U_STAT_iSTATCMD_CE,
+      O => U0_U_ICON_U_STAT_iSTATCMD_CE_n
+    );
+  U0_U_ICON_U_STAT_U_STATCMD : LUT4
+    generic map(
+      INIT => X"8000"
+    )
+    port map (
+      I0 => U0_U_ICON_U_STAT_iDATA_VALID,
+      I1 => U0_U_ICON_iCOMMAND_SEL(0),
+      I2 => U0_U_ICON_iCORE_ID_SEL_15_Q,
+      I3 => U0_U_ICON_U_STAT_iCMD_GRP0_SEL,
+      O => U0_U_ICON_U_STAT_iSTATCMD_CE
+    );
+  U0_U_ICON_U_STAT_U_CMDGRP0 : LUT2
+    generic map(
+      INIT => X"1"
+    )
+    port map (
+      I0 => U0_U_ICON_iCOMMAND_GRP(0),
+      I1 => U0_U_ICON_iCOMMAND_GRP(1),
+      O => U0_U_ICON_U_STAT_iCMD_GRP0_SEL
+    );
+  U0_U_ICON_U_STAT_U_DATA_VALID : LUT2
+    generic map(
+      INIT => X"8"
+    )
+    port map (
+      I0 => U0_U_ICON_iSYNC,
+      I1 => U0_iSHIFT_OUT,
+      O => U0_U_ICON_U_STAT_iDATA_VALID
+    );
   U0_U_ICON_U_STAT_U_TDO : FDE
     generic map(
       INIT => '0'
@@ -1512,6 +1442,19 @@ begin
       CE => N1,
       D => U0_U_ICON_U_STAT_iTDO_next,
       Q => U0_U_ICON_iTDO_VEC(15)
+    );
+  U0_U_ICON_U_TDO_MUX_U_CS_MUX_I4_U_MUX16_Mmux_O11 : LUT6
+    generic map(
+      INIT => X"8001800000010000"
+    )
+    port map (
+      I0 => U0_U_ICON_iCORE_ID(3),
+      I1 => U0_U_ICON_iCORE_ID(2),
+      I2 => U0_U_ICON_iCORE_ID(1),
+      I3 => U0_U_ICON_iCORE_ID(0),
+      I4 => CONTROL0(3),
+      I5 => U0_U_ICON_iTDO_VEC(15),
+      O => U0_U_ICON_iTDO_next
     );
 
 end STRUCTURE;

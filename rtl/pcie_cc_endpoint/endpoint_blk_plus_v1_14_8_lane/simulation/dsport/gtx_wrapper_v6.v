@@ -273,7 +273,7 @@ module gtx_wrapper_v6 (
 
           .TX_DRIVE_MODE("PIPE"),
           .TX_CLK_SOURCE("RXPLL"),
-          .POWER_SAVE(10'b0000000100),
+          .POWER_SAVE(10'b0000100100),
           .CM_TRIM ( 2'b01 ),
           .PMA_CDR_SCAN ( 27'h640404C ),
           .PMA_CFG( 76'h0040000040000000003 ),

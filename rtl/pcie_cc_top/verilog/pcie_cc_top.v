@@ -451,11 +451,11 @@ CC (
     .timeframe_end_rise_o       ( timeframe_end_rise        ),
     .fofb_dma_ok_i              ( fofb_dma_ok               ),
     .fofb_node_mask_o           ( fofb_node_mask            ),
-    .fofb_rxlink_up_o           ( ), //fofb_rxlink_up            ),
-    .fofb_rxlink_partner_o      ( ), //fofb_rxlink_partner       ),
-    .harderror_cnt_o            ( ), //harderror_cnt             ),
-    .softerror_cnt_o            ( ), //softerror_cnt             ),
-    .frameerror_cnt_o           ( ) //frameerror_cnt            )
+    .fofb_rxlink_up_o           ( fofb_rxlink_up            ),
+    .fofb_rxlink_partner_o      ( fofb_rxlink_partner       ),
+    .harderror_cnt_o            ( harderror_cnt             ),
+    .softerror_cnt_o            ( softerror_cnt             ),
+    .frameerror_cnt_o           ( frameerror_cnt            )
 );
 
 `endif

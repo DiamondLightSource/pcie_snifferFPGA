@@ -1,8 +1,11 @@
 # Output products list for <icon>
-icon.ncf
+icon.ejp
+icon.gise
 icon.ngc
 icon.vhd
 icon.vho
 icon.xco
+icon.xise
 icon_flist.txt
+icon_readme.txt
 icon_xmdf.tcl

@@ -185,4 +185,5 @@ pcie_cc_top.prom: pcie_cc_top.mcs
 # Make run
 #
 smart: clean pcie_cc_top.ngc pcie_cc_top.smart
-all: clean pcie_cc_top.ngc pcie_cc_top.ngd pcie_cc_top_map.ncd pcie_cc_top.ncd pcie_cc_top.bit pcie_cc_top.fpga
+all: clean pcie_cc_top.ngc pcie_cc_top.ngd pcie_cc_top_map.ncd pcie_cc_top.ncd pcie_cc_top.bit
+program: pcie_cc_top.fpga pcie_cc_top.prom

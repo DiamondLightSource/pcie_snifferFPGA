@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
--- Copyright (c) 2009 Xilinx, Inc.
+-- Copyright (c) 2011 Xilinx, Inc.
 -- All Rights Reserved
 -------------------------------------------------------------------------------
 --   ____  ____
@@ -8,7 +8,7 @@
 -- \   \   \/     Version    : 1.0
 --  \   \         Application: Xilinx CORE Generator
 --  /   /         Filename   : ila.vho
--- /___/   /\     Timestamp  : Mon Oct 12 11:15:29 BST 2009
+-- /___/   /\     Timestamp  : Mon May 23 16:03:51 BST 2011
 -- \   \  /  \
 --  \___\/\___\
 --

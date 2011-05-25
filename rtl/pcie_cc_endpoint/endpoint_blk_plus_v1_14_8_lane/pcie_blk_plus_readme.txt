@@ -1,6 +1,6 @@
                 Core name: Xilinx LogiCORE Endpoint Block Plus for PCI Express(R)
-                Version: 1.14
-                Release Date: April 19, 2010
+                Version: 1.14 Rev 1.
+                Release Date: July 23, 2010
 
 
 ================================================================================
@@ -45,7 +45,7 @@ Plus for PCI Express User Guide.
 
 2. NEW FEATURES
 
-- ISE 12.1 software support
+- ISE 12.2 software support
 - Synplify support added for VHDL
 - Support for QVirtex5
 - License check removed
@@ -57,6 +57,18 @@ Plus for PCI Express User Guide.
 
 
 4. RESOLVED ISSUES
+
+   - V6 GTX POWER_SAVE setting changed (in Root Port Model). Rev 1.
+      o CR 563643
+
+      V6 GTX POWER_SAVE setting in Root Port model updated per ISE 12.2
+      requirements.
+
+   - trn_tbuf_av width discrepancy fixed in Testbench. Rev 1.
+      o CR 558067
+
+      trn_tbuf_av width discrepancy causing simulation failures in VHDL has been
+      fixed in the Testbench.
 
    - Synplify support now available
       o CR 529524
@@ -230,6 +242,7 @@ designs that do not follow specified guidelines.
 
 Date        By            Version      Description
 ================================================================================
+07/23/2010  Xilinx, Inc.  1.14 Rev 1   12.2 support
 04/19/2010  Xilinx, Inc.  1.14         12.1 support
 13/09/2010  Xilinx, Inc.  1.13 Rev 1   11.5 support
 12/02/2009  Xilinx, Inc.  1.13         11.4 support

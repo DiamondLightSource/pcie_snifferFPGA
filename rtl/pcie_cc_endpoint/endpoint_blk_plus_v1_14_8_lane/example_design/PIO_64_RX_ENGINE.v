@@ -564,9 +564,9 @@ module PIO_64_RX_ENGINE (
     end
 
 
-     assign mem64_bar_hit_n = 1'b1;
+     assign mem64_bar_hit_n = trn_rbar_hit_n[0];
     assign io_bar_hit_n = 1'b1;
-    assign mem32_bar_hit_n = trn_rbar_hit_n[0];
+    assign mem32_bar_hit_n = 1'b1;
     assign erom_bar_hit_n  = trn_rbar_hit_n[6];
 
 

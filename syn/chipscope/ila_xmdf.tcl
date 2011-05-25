@@ -40,7 +40,7 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path ila.cdc
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type AnyView
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path ila.ncf
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path ila.ejp
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type AnyView
 incr fcount
 

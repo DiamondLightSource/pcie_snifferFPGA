@@ -392,7 +392,7 @@ pci_exp_usrapp_tx tx_usrapp (
         .trn_tdst_rdy_n(trn_tdst_rdy_n),
         .trn_tsrc_dsc_n(trn_tsrc_dsc_n),
         .trn_tdst_dsc_n(trn_tdst_dsc_n),
-        .trn_tbuf_av(trn_tbuf_av),
+        .trn_tbuf_av(trn_tbuf_av[4:0]),
         .speed_change_done_n(speed_change_done_n)
 
         );

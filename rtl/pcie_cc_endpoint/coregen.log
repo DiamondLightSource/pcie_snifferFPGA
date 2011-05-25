@@ -8,6 +8,225 @@ CoreGen has been configured with the following Xilinx repositories:
 The IP Catalog has been reloaded.
 Opening project file
 /home/iu42/hardware/trunk/FPGA/pcie_sniffer/rtl/pcie_cc_endpoint/coregen.cgp.
+Recustomize and Generate (Under Original Project Settings)INFO:sim:927 - Generating component instance 'endpoint_blk_plus_v1_14_4_lane' of
+   'xilinx.com:ip:pcie_blk_plus:1.14' from
+   '/dls_sw/apps/FPGA/Xilinx/13.1/ISE_DS/ISE/coregen/ip/xilinx/network/com/xilin
+   x/ip/pcie_blk_plus_v1_14/component.xml'.
+Executing Tcl generator...
+WARNING:sim - A core named 'endpoint_blk_plus_v1_14_4_lane' already exists in
+   the project. Output products for this core may be overwritten.
+Finished executing Tcl generator.
+Executing Tcl generator...
+INFO:sim - Resolving generics for 'endpoint_blk_plus_v1_14_4_lane'...
+WARNING:sim - A core named 'endpoint_blk_plus_v1_14_4_lane' already exists in
+   the project. Output products for this core may be overwritten.
+INFO:sim - Applying external generics to 'endpoint_blk_plus_v1_14_4_lane'...
+Finished executing Tcl generator.
+Executing Tcl generator...
+INFO:sim - Delivering associated files for 'endpoint_blk_plus_v1_14_4_lane'...
+Finished executing Tcl generator.
+Executing Tcl generator...
+INFO:sim - Delivering EJava files for 'endpoint_blk_plus_v1_14_4_lane'...
+Finished executing Tcl generator.
+Executing Tcl generator...
+INFO:sim - Delivering synthesis source files for
+   'endpoint_blk_plus_v1_14_4_lane'...
+INFO:sim - Pre-processing HDL files for 'endpoint_blk_plus_v1_14_4_lane'...
+Finished executing Tcl generator.
+Generating metadata file...
+Finished generating metadata file.
+Generating ISE project...
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_4_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+Finished generating ISE project.Generating README file...
+Finished generating README file.
+Generating FLIST file...
+Finished FLIST file generation.
+Preparing output directory...
+Finished preparing output directory.
+Launching README viewer...
+Launched README viewer.
+Moving files to output directory...
+Finished moving files to output directory
+Saved options for project 'coregen'.
 Recustomize and Generate (Under Original Project Settings)INFO:sim:927 - Generating component instance 'endpoint_blk_plus_v1_14_8_lane' of
    'xilinx.com:ip:pcie_blk_plus:1.14' from
    '/dls_sw/apps/FPGA/Xilinx/13.1/ISE_DS/ISE/coregen/ip/xilinx/network/com/xilin
@@ -214,6 +433,221 @@ WARNING:sim - ProjectMgmt:495 -
 WARNING:sim - ProjectMgmt:495 -   
 WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
    'endpoint_blk_plus_v1_14_8_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+Finished generating ISE project.Generating README file...
+Finished generating README file.
+Generating FLIST file...
+Finished FLIST file generation.
+Preparing output directory...
+Finished preparing output directory.
+Launching README viewer...
+Launched README viewer.
+Moving files to output directory...
+Finished moving files to output directory
+Saved options for project 'coregen'.
+Recustomize and Generate (Under Original Project Settings)INFO:sim:927 - Generating component instance 'endpoint_blk_plus_v1_14_4_lane' of
+   'xilinx.com:ip:pcie_blk_plus:1.14' from
+   '/dls_sw/apps/FPGA/Xilinx/13.1/ISE_DS/ISE/coregen/ip/xilinx/network/com/xilin
+   x/ip/pcie_blk_plus_v1_14/component.xml'.
+Executing Tcl generator...
+Finished executing Tcl generator.
+Executing Tcl generator...
+INFO:sim - Resolving generics for 'endpoint_blk_plus_v1_14_1_lane'...
+INFO:sim - Applying external generics to 'endpoint_blk_plus_v1_14_1_lane'...
+Finished executing Tcl generator.
+Executing Tcl generator...
+INFO:sim - Delivering associated files for 'endpoint_blk_plus_v1_14_1_lane'...
+Finished executing Tcl generator.
+Executing Tcl generator...
+INFO:sim - Delivering EJava files for 'endpoint_blk_plus_v1_14_1_lane'...
+Finished executing Tcl generator.
+Executing Tcl generator...
+INFO:sim - Delivering synthesis source files for
+   'endpoint_blk_plus_v1_14_1_lane'...
+INFO:sim - Pre-processing HDL files for 'endpoint_blk_plus_v1_14_1_lane'...
+Finished executing Tcl generator.
+Generating metadata file...
+Finished generating metadata file.
+Generating ISE project...
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:495 -   
+WARNING:sim - ProjectMgmt:567 - Duplicate Design Unit
+   'endpoint_blk_plus_v1_14_1_lane'
 WARNING:sim - ProjectMgmt:495 -   
 WARNING:sim - ProjectMgmt:495 -   
 Finished generating ISE project.Generating README file...

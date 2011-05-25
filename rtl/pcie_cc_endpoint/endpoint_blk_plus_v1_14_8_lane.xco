@@ -1,7 +1,7 @@
 ##############################################################
 #
-# Xilinx Core Generator version 12.1
-# Date: Thu May 13 15:13:45 2010
+# Xilinx Core Generator version 13.1
+# Date: Tue May 24 12:25:49 2011
 #
 ##############################################################
 #
@@ -32,27 +32,27 @@ SET verilogsim = true
 SET vhdlsim = false
 # END Project Options
 # BEGIN Select
-SELECT Endpoint_Block_Plus_for_PCI_Express family Xilinx,_Inc. 1.14
+SELECT Endpoint_Block_Plus_for_PCI_Express xilinx.com:ip:pcie_blk_plus:1.14
 # END Select
 # BEGIN Parameters
 CSET acceptable_l0_latency=No_limit
 CSET acceptable_l1_latency=No_limit
 CSET advanced_flow_control_credit=Header_Credit
 CSET aux_max_current=0mA
-CSET bar0_64bit=false
+CSET bar0_64bit=true
 CSET bar0_enabled=true
 CSET bar0_prefetchable=false
 CSET bar0_scale=Kilobytes
 CSET bar0_size=1
 CSET bar0_type=Memory
-CSET bar0_value=FFFFFC00
+CSET bar0_value=FFFFFC04
 CSET bar1_64bit=false
 CSET bar1_enabled=false
 CSET bar1_prefetchable=false
 CSET bar1_scale=Kilobytes
 CSET bar1_size=64
 CSET bar1_type=IO
-CSET bar1_value=00000000
+CSET bar1_value=FFFFFFFF
 CSET bar2_64bit=false
 CSET bar2_enabled=false
 CSET bar2_prefetchable=false
@@ -141,5 +141,8 @@ CSET tx_diff_ctrl=800
 CSET tx_pre_emphasis=52
 CSET vendor_id=10EE
 # END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2011-02-03T22:14:53.000Z
+# END Extra information
 GENERATE
-# CRC: 52965008
+# CRC: 616ee11a

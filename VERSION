@@ -11,8 +11,8 @@
 
 # Specify three point version here in decimal
 FPGA_VER_MAJOR = 1
-FPGA_VER_MINOR = 0
-FPGA_VER_POINT = 5
+FPGA_VER_MINOR = 1
+FPGA_VER_POINT = 0
 
 
 # Computation of FPGA_VER and FPGA_VER_REGISTER strings from version numbers

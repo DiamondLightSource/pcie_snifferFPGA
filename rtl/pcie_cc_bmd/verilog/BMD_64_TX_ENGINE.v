@@ -540,11 +540,16 @@ always @ ( posedge clk ) begin
 
 /*
  * Implement a FIFO-like read interface to x&y position buffers
+ * This is MAGIC!!!
  */
+
+/* Accept only first compl_done input */
+wire compl_done_bypass = (cur_wr_count==0) ? !compl_done_o : 1'b1;
+
 wire pop_data =
 trn_teof_n  &&
 (
-(mwr_start_i && !mwr_done_o && !trn_tdst_rdy_n && trn_tdst_dsc_n && cfg_bm_en && (bmd_64_tx_state == `BMD_64_TX_RST_STATE)) ||
+(!(req_compl_q && compl_done_bypass && !trn_tdst_rdy_n && trn_tdst_dsc_n) &&  (mwr_start_i && !mwr_done_o && !trn_tdst_rdy_n && trn_tdst_dsc_n && cfg_bm_en) && (bmd_64_tx_state == `BMD_64_TX_RST_STATE)) ||
 (!trn_tdst_rdy_n && trn_tdst_dsc_n && (bmd_64_tx_state == `BMD_64_TX_MWR_QW1)) ||
 (!trn_tdst_rdy_n && trn_tdst_dsc_n && (bmd_64_tx_state == `BMD_64_TX_MWR64_QW1)) ||
 (!trn_tdst_rdy_n && trn_tdst_dsc_n && (cur_mwr_dw_count != 1'h1 && cur_mwr_dw_count != 2'h2) && (bmd_64_tx_state == `BMD_64_TX_MWR_QWN))
@@ -581,11 +586,28 @@ begin
 end
 
 /*
+ * Debug Logic
+ */
+/*
+reg cscope_trig;
+
+always @ (posedge clk)
+begin
+    if (trn_td[63:32] == (mwr_addr_i + mwr_len_byte)) begin
+        if (trn_td[31:0] != 32'h10_00_00_00)
+            cscope_trig = 1'b1;
+        else
+            cscope_trig = 1'b0;
+    end
+end
+*/
+
+/*
  * Chipscope Interface
  */
 /*
 wire [35:0]     control0;
-wire [159:0]    data;
+wire [255:0]    data;
 wire [7:0]      trig;
 
 icon i_icon (
@@ -601,7 +623,11 @@ ila i_ila (
 
 assign trig[0] = init_rst_i;
 assign trig[1] = mwr_start_i;
-assign trig[7:2] = 0;
+assign trig[2] = trn_tdst_rdy_n;
+assign trig[3] = trn_tsrc_rdy_n;
+assign trig[4] = trn_tsof_n;
+assign trig[5] = cscope_trig;
+assign trig[7:6] = 0;
 
 assign data[63:0]   = trn_td;
 assign data[71:64]  = trn_trem_n;
@@ -620,6 +646,15 @@ assign data[122:107] = cur_wr_count;
 assign data[126:123] = trn_tbuf_av;
 assign data[135:127] = bmd_64_tx_state;
 assign data[136]     = mwr_64b_en_i;
+assign data[146:137] = xy_buf_addr_o;
+assign data[210:147] = xy_buf_dat_i;
+assign data[211] = cscope_trig;
+assign data[212] = req_compl_q;
+assign data[213] = compl_done_o;
+assign data[220:214] = rd_addr_o;
+assign data[252:221] = rd_data_i;
+assign data[253]     = compl_done_bypass;
 */
+
 endmodule // BMD_64_TX_ENGINE
 

@@ -1,5 +1,4 @@
 # Output products list for <endpoint_blk_plus_v1_14_8_lane>
-_xmsgs/pn_parser.xmsgs
 endpoint_blk_plus_v1_14_8_lane/doc/pcie_blk_plus_ds551.pdf
 endpoint_blk_plus_v1_14_8_lane/doc/pcie_blk_plus_gsg343.pdf
 endpoint_blk_plus_v1_14_8_lane/doc/pcie_blk_plus_ug341.pdf
@@ -113,5 +112,6 @@ endpoint_blk_plus_v1_14_8_lane.gise
 endpoint_blk_plus_v1_14_8_lane.veo
 endpoint_blk_plus_v1_14_8_lane.xco
 endpoint_blk_plus_v1_14_8_lane.xise
+endpoint_blk_plus_v1_14_8_lane.xlpp
 endpoint_blk_plus_v1_14_8_lane_flist.txt
 endpoint_blk_plus_v1_14_8_lane_xmdf.tcl

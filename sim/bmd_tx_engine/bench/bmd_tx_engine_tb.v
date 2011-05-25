@@ -91,7 +91,7 @@ BMD_TX_ENGINE uut (
     .trn_tsrc_rdy_n(trn_tsrc_rdy_n), 
     .trn_tsrc_dsc_n(trn_tsrc_dsc_n), 
     .trn_tdst_rdy_n(trn_tdst_rdy_n), 
-    .trn_tdst_dsc_n(trn_tdst_dsc_n), 
+    .trn_tdst_dsc_n(1'b1), 
     .trn_tbuf_av(trn_tbuf_av), 
     .req_compl_i(req_compl_i), 
     .compl_done_o(compl_done_o), 
@@ -179,7 +179,7 @@ initial begin
     for (i=0; i< 256; i=i+1) begin
         addra = i;
         dina = {32'(i), 32'(i)};
-        if (i==1 || i==2 || i==3)
+        if (i < 101)
             wea = 1;
         else
             wea = 0;
@@ -208,7 +208,7 @@ initial begin
     mwr_tag_i = 0;
     mwr_lbe_i = 0;
     mwr_fbe_i = 0;
-    mwr_addr_i = 0;
+    mwr_addr_i = 32'h12345678;
     mwr_tlp_tc_i = 0;
     mwr_64b_en_i = 0;
     mwr_phant_func_dis1_i = 0;
@@ -248,17 +248,26 @@ initial begin
 end
 
 initial begin
-    /* Test stimuli from PCI-E interface */
+    trn_tdst_rdy_n = 1;
+    repeat(1010) @(posedge clk);
     trn_tdst_rdy_n = 0;
-    trn_tdst_dsc_n = 1;
+end
+
+/*
+initial begin
+    trn_tdst_rdy_n = 0;
     trn_tbuf_av = 0;
     @(negedge trn_tsof_n);
+    repeat(1) @(posedge clk);
+    trn_tdst_rdy_n = 1;
+    repeat(1) @(posedge clk);
+    trn_tdst_rdy_n = 0;
     repeat(1) @(posedge clk);
     trn_tdst_rdy_n = 1;
     repeat(2) @(posedge clk);
     trn_tdst_rdy_n = 0;
 end
-
+*/
 
 endmodule
 
