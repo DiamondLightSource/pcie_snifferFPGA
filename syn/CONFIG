@@ -1,0 +1,32 @@
+# Top-level design name
+SYSTEM = pcie_cc_top
+
+# Design dependant IP diretories
+CC_IP_DIR = ../../rtl/FastFeedbackFPGA/rtl
+
+# Coregen IP netlist files
+NETLIST_DIR = ../implementation
+COREGEN_NGC_FILES = $(NETLIST_DIR)/fofb_cc_rx_fifo.ngc \
+                    $(NETLIST_DIR)/fofb_cc_tx_fifo.ngc
+
+# ISE tools outputs
+LIST_FILE = $(SYSTEM).lst
+SCR_FILE = $(SYSTEM).scr
+XCF_FILE = $(SYSTEM).xcf
+UCF_FILE = $(SYSTEM).ucf
+
+POSTSYN_NETLIST = $(SYSTEM).ngc
+NGD_FILE = $(SYSTEM).ngd
+MAPPED_NCD_FILE = $(SYSTEM)_map.ncd
+ROUTED_NCD_FILE = $(SYSTEM).ncd
+BIT_FILE = $(SYSTEM).bit
+PROM_FILE = $(SYSTEM).mcs
+
+# Custom Project dependant defines
+ENDPOINT_DIR = ../../rtl/pcie_cc_endpoint/endpoint_blk_plus
+
+VERSION_FILE = ../../rtl/pcie_cc_bmd/verilog/common/pcie_cc_version.v
+
+DEFINES_FILE = ../../rtl/pcie_cc_top/verilog/pcie_cc_top_defines.v
+
+

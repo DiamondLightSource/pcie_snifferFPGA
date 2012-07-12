@@ -61,17 +61,19 @@ mgt_clksel <= '1';
 --
 process (clk)
 begin
-    if (resetcnt(4) = '1') then
-        reset <= '0';
-    else
-        resetcnt <= resetcnt + '1';
-        reset <= '1';
+    if rising_edge(clk) then
+        if (resetcnt(4) = '1') then
+            reset <= '0';
+        else
+            resetcnt <= resetcnt + '1';
+            reset <= '1';
+        end if;
     end if;
 end process;
 
-process (reset,clk)
+process (reset, clk)
 begin
-    if (reset = '1') then 
+    if (reset = '1') then
         next_state <= s0;
         strobe_sig <= '0';
         sdata_sig <= '0';

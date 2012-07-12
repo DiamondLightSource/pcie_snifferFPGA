@@ -14,6 +14,10 @@ module BMD_64_RWDMA_FSM (
     init_rst_i,
     wdma_rst_o,
 
+    // TLP status interface
+    mwr_len_i,
+    mwr_count_i,
+
     // DMA Engine interface
     wdma_start_o,
     wdma_addr_o,
@@ -42,6 +46,9 @@ input           clk;
 input           rst_n;
 input           init_rst_i;
 output          wdma_rst_o;
+
+input  [9:0]    mwr_len_i;
+input  [15:0]   mwr_count_i;
 
 output          wdma_start_o;
 output [39:0]   wdma_addr_o;
@@ -79,6 +86,9 @@ reg [5:0]       wdma_state_prev;
 /*
  * Local wires
  */
+
+/* CC frame size in bytes to be DMAed */
+wire [31:0]     wdma_frame_size  = 4 * mwr_len_i * mwr_count_i;
 
 /* Buffer length in number of frames, each frame is 2Kbytes */
 wire [15:0]     wdma_buf_size = wdma_frame_len_i[15:0];
@@ -187,7 +197,8 @@ begin
             `WDMA_DOING_DMA : begin
                 if (wdma_done_i) begin
                     wdma_start_o <= 1'b0;
-                    wdma_addr_o <= wdma_addr_o + 2048;
+//                    wdma_addr_o <= wdma_addr_o + 2048;
+                    wdma_addr_o <= wdma_addr_o + wdma_frame_size;
                     wdma_buf_cnt <=  wdma_buf_cnt + 1;
                     wdma_state <= `WDMA_CHECK;
                 end

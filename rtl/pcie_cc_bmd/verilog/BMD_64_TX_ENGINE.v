@@ -555,21 +555,21 @@ trn_teof_n  &&
 (!trn_tdst_rdy_n && trn_tdst_dsc_n && (cur_mwr_dw_count != 1'h1 && cur_mwr_dw_count != 2'h2) && (bmd_64_tx_state == `BMD_64_TX_MWR_QWN))
 );
 
-reg  [7:0]      xy_buf_addr;
-reg  [7:0]      xy_buf_addr_next;
+reg  [9:0]      xy_buf_addr;
+reg  [9:0]      xy_buf_addr_next;
 
-assign xy_buf_addr_o = pop_data ? {2'b0, xy_buf_addr_next} : {2'b0, xy_buf_addr};
+assign xy_buf_addr_o = pop_data ? xy_buf_addr_next : xy_buf_addr;
 
 always @ (posedge clk) 
 begin
     if (!rst_n ) begin
-        xy_buf_addr <= 8'hFF;
-        xy_buf_addr_next <= 8'h0;
+        xy_buf_addr <= 10'hFF;
+        xy_buf_addr_next <= 10'h0;
     end
     else begin
         if (init_rst_i ) begin
-            xy_buf_addr <= 8'hFF;
-            xy_buf_addr_next <= 8'h0;
+            xy_buf_addr <= 10'hFF;
+            xy_buf_addr_next <= 10'h0;
         end
 
         if (pop_data) begin

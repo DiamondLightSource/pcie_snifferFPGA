@@ -90,7 +90,6 @@ module BMD_EP# (
     xy_buf_addr_o,
     xy_buf_dat_i,
     timeframe_end_rise_i,
-    fofb_node_mask_i,
     fofb_dma_ok_o,
     fofb_rxlink_up_i,
     fofb_rxlink_partner_i,
@@ -176,7 +175,6 @@ output [31:0]     fai_cfg_val_o;
 output [9:0]      xy_buf_addr_o;
 input  [63:0]     xy_buf_dat_i;
 input             timeframe_end_rise_i;
-input  [255:0]    fofb_node_mask_i;
 output            fofb_dma_ok_o;
 input             fofb_rxlink_up_i;
 input  [9:0]      fofb_rxlink_partner_i;
@@ -278,9 +276,9 @@ always @(posedge clk) begin
         pl_initial_link_width_user <= 3'b0;
         pl_link_upcfg_capable_user <= 1'b0;
         pl_lane_reversal_mode_user <= 2'b0;
-    end 
+    end
     else begin
-        pl_ltssm_state_user <= pl_ltssm_state; 
+        pl_ltssm_state_user <= pl_ltssm_state;
         pl_sel_link_width_user <= pl_sel_link_width;
         pl_sel_link_rate_user <= pl_sel_link_rate;
         pl_link_gen2_capable_user <= pl_link_gen2_capable;
@@ -482,8 +480,8 @@ BMD_TX_ENGINE EP_TX (
     .mwr_int_dis_i              ( mwr_int_dis_o                 ), // I
     .mwr_done_o                 ( mwr_done                      ), // O
     .mwr_addr_i                 ( wdma_addr[31:0]               ), // I [31:0]
-    .mwr_len_i                  ( mwr_len[9:0]                  ), // I [31:0]
-    .mwr_count_i                ( mwr_count[15:0]               ), // I [31:0]
+    .mwr_len_i                  ( mwr_len[9:0]                  ),
+    .mwr_count_i                ( mwr_count[15:0]               ),
     .mwr_tlp_tc_i               ( mwr_tlp_tc_o                  ), // I [2:0]
     .mwr_64b_en_i               ( mwr_64b_en_o                  ), // I
     .mwr_phant_func_dis1_i      ( 1'b1                          ), // I
@@ -520,6 +518,9 @@ BMD_64_RWDMA_FSM BMD_64_RWDMA_FSM (
     .rst_n                      ( rst_n                         ),
     .init_rst_i                 ( init_rst                      ),
     .wdma_rst_o                 ( wdma_rst                      ),
+
+    .mwr_len_i                  ( mwr_len[9:0]                  ),
+    .mwr_count_i                ( mwr_count[15:0]               ),
 
     .wdma_start_o               ( wdma_start                    ),
     .wdma_addr_o                ( wdma_addr                     ),

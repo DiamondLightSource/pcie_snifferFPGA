@@ -204,8 +204,7 @@ wire [7:0]        fpga_family;
 wire [3:0]        interface_type;
 wire [15:0]       version_number;
 
-//assign version_number = 16'h0005;   //vX.XX.X
-
+//assign version_number
 `include "pcie_cc_version.v"
 
 assign interface_type = INTERFACE_TYPE;

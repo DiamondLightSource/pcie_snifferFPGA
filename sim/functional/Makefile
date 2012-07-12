@@ -4,8 +4,8 @@ ISE = source /dls_sw/apps/FPGA/Xilinx/10.1/ISE/settings32.sh
 
 
 export LMC_HOME=/dls_sw/apps/FPGA/Xilinx/10.1/ISE/smartmodel/lin/installed_lin
-PATH := /dls_sw/apps/FPGA/Questa/6.5b/questasim/linux:$(PATH)
-#PATH := /dls_sw/apps/FPGA/Questa/10.0/questasim/linux:$(PATH)
+#PATH := /dls_sw/apps/FPGA/Questa/6.5b/questasim/linux:$(PATH)
+PATH := /dls_sw/apps/FPGA/Questa/6.6c/questasim/linux:$(PATH)
 
 # Test name
 TESTNAME = wdmatest

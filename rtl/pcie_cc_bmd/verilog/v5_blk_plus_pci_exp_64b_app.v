@@ -1,21 +1,4 @@
 //------------------------------------------------------------------------------
-//--
-//-- This file is owned and controlled by Xilinx and must be used solely
-//-- for design, simulation, implementation and creation of design files
-//-- limited to Xilinx devices or technologies. Use with non-Xilinx
-//-- devices or technologies is expressly prohibited and immediately
-//-- terminates your license.
-//--
-//-- Xilinx products are not intended for use in life support
-//-- appliances, devices, or systems. Use in such applications is
-//-- expressly prohibited.
-//--
-//--            **************************************
-//--            ** Copyright (C) 2005, Xilinx, Inc. **
-//--            ** All Rights Reserved.             **
-//--            **************************************
-//--
-//------------------------------------------------------------------------------
 //-- Filename: pci_exp_64b_app.v
 //--
 //-- Description:  PCI Express Endpoint Core 64 bit interface sample application
@@ -107,7 +90,6 @@ module  pci_exp_64b_app (
     xy_buf_addr_o,
     xy_buf_dat_i,
     timeframe_end_rise_i,
-    fofb_node_mask_i,
     fofb_dma_ok_o,
     fofb_rxlink_up_i,
     fofb_rxlink_partner_i,
@@ -208,7 +190,6 @@ output [31:0]           fai_cfg_val_o;
 output [9:0]            xy_buf_addr_o;
 input  [63:0]           xy_buf_dat_i;
 input                   timeframe_end_rise_i;
-input  [255:0]          fofb_node_mask_i;
 output                  fofb_dma_ok_o;
 input                   fofb_rxlink_up_i;
 input  [9:0]            fofb_rxlink_partner_i;
@@ -261,54 +242,53 @@ parameter INTERFACE_TYPE = 4'b0010;
 parameter FPGA_FAMILY = 8'h13; 
 
 
-BMD#
-(
-    .INTERFACE_WIDTH(INTERFACE_WIDTH),
-    .INTERFACE_TYPE(INTERFACE_TYPE),
-    .FPGA_FAMILY(FPGA_FAMILY)
+BMD # (
+    .INTERFACE_WIDTH            ( INTERFACE_WIDTH               ),
+    .INTERFACE_TYPE             ( INTERFACE_TYPE                ),
+    .FPGA_FAMILY                ( FPGA_FAMILY                   )
 )
 BMD (
-    .trn_clk ( trn_clk ),                       // I
-    .trn_reset_n ( trn_reset_n ),               // I
-    .trn_lnk_up_n ( trn_lnk_up_n ),             // I
+    .trn_clk                    ( trn_clk                       ), // I
+    .trn_reset_n                ( trn_reset_n                   ), // I
+    .trn_lnk_up_n               ( trn_lnk_up_n                  ), // I
 
-    .trn_td ( trn_td ),                         // O [63:0]
-    .trn_trem_n ( trn_trem ),                   // O [7:0]
-    .trn_tsof_n ( trn_tsof_n ),                 // O
-    .trn_teof_n ( trn_teof_n ),                 // O
-    .trn_tsrc_rdy_n ( trn_tsrc_rdy_n ),         // O
-    .trn_tsrc_dsc_n ( trn_tsrc_dsc_n ),         // O
-    .trn_tdst_rdy_n ( trn_tdst_rdy_n ),         // I
-    .trn_tdst_dsc_n ( trn_tdst_dsc_n ),         // I
-    .trn_rcpl_streaming_n( trn_rcpl_streaming_n ), // I
-    .trn_tbuf_av ( {2'b0,trn_tbuf_av} ),        // I [5:0]
+    .trn_td                     ( trn_td                        ), // O [63:0]
+    .trn_trem_n                 ( trn_trem                      ), // O [7:0]
+    .trn_tsof_n                 ( trn_tsof_n                    ), // O
+    .trn_teof_n                 ( trn_teof_n                    ), // O
+    .trn_tsrc_rdy_n             ( trn_tsrc_rdy_n                ), // O
+    .trn_tsrc_dsc_n             ( trn_tsrc_dsc_n                ), // O
+    .trn_tdst_rdy_n             ( trn_tdst_rdy_n                ), // I
+    .trn_tdst_dsc_n             ( trn_tdst_dsc_n                ), // I
+    .trn_rcpl_streaming_n       ( trn_rcpl_streaming_n          ), // I
+    .trn_tbuf_av                ( {2'b0,trn_tbuf_av}            ), // I [5:0]
 
-    .trn_rd ( trn_rd ),                         // I [63:0]
-    .trn_rrem_n ( trn_rrem ),                   // I [7:0]
-    .trn_rsof_n ( trn_rsof_n ),                 // I
-    .trn_reof_n ( trn_reof_n ),                 // I
-    .trn_rsrc_rdy_n ( trn_rsrc_rdy_n ),         // I
-    .trn_rsrc_dsc_n ( trn_rsrc_dsc_n ),         // I
-    .trn_rdst_rdy_n ( trn_rdst_rdy_n ),         // O
-    .trn_rbar_hit_n ( trn_rbar_hit_n ),         // I [6:0]
+    .trn_rd                     ( trn_rd                        ), // I [63:0]
+    .trn_rrem_n                 ( trn_rrem                      ), // I [7:0]
+    .trn_rsof_n                 ( trn_rsof_n                    ), // I
+    .trn_reof_n                 ( trn_reof_n                    ), // I
+    .trn_rsrc_rdy_n             ( trn_rsrc_rdy_n                ), // I
+    .trn_rsrc_dsc_n             ( trn_rsrc_dsc_n                ), // I
+    .trn_rdst_rdy_n             ( trn_rdst_rdy_n                ), // O
+    .trn_rbar_hit_n             ( trn_rbar_hit_n                ), // I [6:0]
 
-    .cfg_to_turnoff_n ( cfg_to_turnoff_n ),     // I
-    .cfg_turnoff_ok_n ( cfg_turnoff_ok_n ),     // O
-    .cfg_interrupt_n(cfg_interrupt_n),              // O
-    .cfg_interrupt_rdy_n(cfg_interrupt_rdy_n),      // I
-    .cfg_interrupt_msienable(cfg_interrupt_msienable), // I
-    .cfg_interrupt_assert_n(cfg_interrupt_assert_n),   // O
-    .cfg_ext_tag_en(cfg_ext_tag_en),                // I 
-    .cfg_neg_max_lnk_width(cfg_neg_max_lnk_width),       // I [5:0]
-    .cfg_prg_max_payload_size(cfg_prg_max_payload_size), // I [5:0]
-    .cfg_max_rd_req_size(cfg_max_rd_req_size),           // I [2:0]
-    .cfg_rd_comp_bound(cfg_rd_comp_bound),          // I
-    .cfg_dwaddr(cfg_dwaddr),                        // O [11:0]
-    .cfg_rd_en_n(cfg_rd_en_n),                      // O
-    .cfg_do(cfg_do),                                // I [31:0]
-    .cfg_rd_wr_done_n(cfg_rd_wr_done_n),            // I
-    .cfg_completer_id ( cfg_completer_id ),         // I [15:0]
-    .cfg_bus_mstr_enable (cfg_bus_mstr_enable ),    // I
+    .cfg_to_turnoff_n           ( cfg_to_turnoff_n              ), // I
+    .cfg_turnoff_ok_n           ( cfg_turnoff_ok_n              ), // O
+    .cfg_interrupt_n            ( cfg_interrupt_n               ), // O
+    .cfg_interrupt_rdy_n        ( cfg_interrupt_rdy_n           ), // I
+    .cfg_interrupt_msienable    ( cfg_interrupt_msienable       ), // I
+    .cfg_interrupt_assert_n     ( cfg_interrupt_assert_n        ), // O
+    .cfg_ext_tag_en             ( cfg_ext_tag_en                ), // I
+    .cfg_neg_max_lnk_width      ( cfg_neg_max_lnk_width         ), // I [5:0]
+    .cfg_prg_max_payload_size   ( cfg_prg_max_payload_size      ), // I [5:0]
+    .cfg_max_rd_req_size        ( cfg_max_rd_req_size           ), // I [2:0]
+    .cfg_rd_comp_bound          ( cfg_rd_comp_bound             ), // I
+    .cfg_dwaddr                 ( cfg_dwaddr                    ), // O [11:0]
+    .cfg_rd_en_n                ( cfg_rd_en_n                   ), // O
+    .cfg_do                     ( cfg_do                        ), // I [31:0]
+    .cfg_rd_wr_done_n           ( cfg_rd_wr_done_n              ), // I
+    .cfg_completer_id           ( cfg_completer_id              ), // I [15:0]
+    .cfg_bus_mstr_enable        ( cfg_bus_mstr_enable           ), // I
 
     .fai_cfg_a_i                ( fai_cfg_a_i                   ),
     .fai_cfg_do_i               ( fai_cfg_do_i                  ),
@@ -320,7 +300,6 @@ BMD (
     .xy_buf_addr_o              ( xy_buf_addr_o                 ),
     .xy_buf_dat_i               ( xy_buf_dat_i                  ),
     .timeframe_end_rise_i       ( timeframe_end_rise_i          ),
-    .fofb_node_mask_i           ( fofb_node_mask_i              ),
     .fofb_dma_ok_o              ( fofb_dma_ok_o                 ),
     .fofb_rxlink_up_i           ( fofb_rxlink_up_i              ),
     .fofb_rxlink_partner_i      ( fofb_rxlink_partner_i         ),

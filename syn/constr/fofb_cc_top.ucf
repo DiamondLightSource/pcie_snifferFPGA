@@ -20,12 +20,12 @@ NET "sclock"            LOC = "AJ32";
 #
 NET  "gtp_clk_p"        LOC = "J20";
 NET  "gtp_clk_n"        LOC = "J21";
-INST "CC/fofb_cc_top/fofb_cc_clk_if/v5_clk_if.refclk_ibufds" DIFF_TERM = "TRUE";
+#INST "CC/fofb_cc_top/fofb_cc_clk_if/v5_clk_if.refclk_ibufds" DIFF_TERM = "TRUE";
 
 NET   "gtp_clk_p" PERIOD = 9.41 ns;
 
-NET   "cc/fofb_cc_top/GTP_IF_GEN.GTP_IF/refclkout" TNM_NET = "CC_GTPCLK";
+NET   "fofb_cc_top_inst/fofb_cc_top/GT_IF/refclkout" TNM_NET = "CC_GTPCLK";
 TIMESPEC "TS_CC_GTPCLK" = PERIOD "CC_GTPCLK" 9.41 ns HIGH 50 %;
 
-INST "cc/fofb_cc_top/GTP_IF_GEN.GTP_IF/GTP_INST/gtp_dual_i" LOC=GTP_DUAL_X0Y4;
+INST "fofb_cc_top_inst/fofb_cc_top/GT_IF/GTP_INST/gtp_dual_i" LOC=GTP_DUAL_X0Y4;
 

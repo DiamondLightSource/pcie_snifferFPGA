@@ -10,8 +10,8 @@
 # To this we add a point version z which can go up to 15.
 
 # Specify three point version here in decimal
-FPGA_VER_MAJOR = 1
-FPGA_VER_MINOR = 1
+FPGA_VER_MAJOR = 3
+FPGA_VER_MINOR = 0
 FPGA_VER_POINT = 0
 
 

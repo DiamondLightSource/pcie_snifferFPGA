@@ -42,4 +42,4 @@
 ../../rtl/pcie_cc_endpoint/endpoint_blk_plus/source/sync_fifo.v
 ../../rtl/pcie_cc_endpoint/endpoint_blk_plus/source/extend_clk.v
 ../../rtl/pcie_cc_endpoint/endpoint_blk_plus/source/pcie_ep.v
-../../rtl/pcie_cc_endpoint/endpoint_blk_plus/source/endpoint_blk_plus_v1_13_4_lane.v
+../../rtl/pcie_cc_endpoint/endpoint_blk_plus/source/endpoint_blk_plus_v1_14_4_lane.v

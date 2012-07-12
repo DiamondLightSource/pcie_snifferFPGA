@@ -91,7 +91,6 @@ pcie_cc_top(
  */
 reg                 cor_gtp_reset;
 reg                 timeframe_start;
-reg                 timeframe_end;
 
 wire                rxn;
 wire                rxp;
@@ -135,35 +134,6 @@ fofb_cc_top_tester (
     .txn_o                  ( txn                   ),
     .txp_o                  ( txp                   )
 );
-
-
-//Time frame start and end pulse generator
-reg [15:0]              timeframe_counter;
-
-initial begin
-    timeframe_start <= 1'b0;
-    timeframe_end <= 1'b0;
-    timeframe_counter <= 0;
-
-    repeat(10000) @(posedge cor_gtp_clk_p);
-
-    forever begin
-        @(posedge cor_gtp_clk_p);
-        if (timeframe_counter == 0) begin
-            timeframe_start <= 1'b1;
-            timeframe_counter <= 10071;
-        end
-        else begin
-            timeframe_start <= 1'b0;
-            timeframe_counter <= timeframe_counter - 1;
-        end
-
-        if (timeframe_counter == 0)
-            timeframe_end <= 1'b0;
-        else if (timeframe_counter == 10071-7500)
-            timeframe_end <= 1'b1;
-    end
-end
 
 
 /*

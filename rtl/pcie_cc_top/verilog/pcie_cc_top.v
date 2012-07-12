@@ -12,7 +12,6 @@ module pcie_cc_top (
     sys_clk_p,
     sys_clk_n,
     sys_reset_n,
-//    refclkout,
 `endif
 
 `ifdef CC
@@ -89,7 +88,7 @@ input  [(LANE_COUNT - 1):0]      sfp_rxn;
  */
 
 wire                    sys_clk_c;
-wire                    sys_reset_n_c; 
+wire                    sys_reset_n_c;
 wire                    trn_clk_c;//synthesis attribute max_fanout of trn_clk_c is "100000"
 wire                    trn_reset_n_c;
 wire                    trn_lnk_up_n_c;
@@ -169,7 +168,7 @@ wire [31: 0]            fai_cfg_val;
 wire [9:0]              xy_buf_addr;
 wire [63:0]             xy_buf_dat;
 wire                    timeframe_end_rise;
-wire [255:0]            fofb_node_mask;
+wire [511:0]            fofb_node_mask;
 wire                    fofb_dma_ok;
 wire                    fofb_rxlink_up;
 wire [9:0]              fofb_rxlink_partner;
@@ -283,7 +282,6 @@ pci_exp_64b_app app (
     .xy_buf_addr_o              ( xy_buf_addr               ),
     .xy_buf_dat_i               ( xy_buf_dat                ),
     .timeframe_end_rise_i       ( timeframe_end_rise        ),
-    .fofb_node_mask_i           ( fofb_node_mask            ),
     .fofb_dma_ok_o              ( fofb_dma_ok               ),
     .fofb_rxlink_up_i           ( fofb_rxlink_up            ),
     .fofb_rxlink_partner_i      ( fofb_rxlink_partner       ),
@@ -429,10 +427,11 @@ fofb_cc_top_wrapper #(
     .SIM_GTPRESET_SPEEDUP       ( SIM_GTPRESET_SPEEDUP      ),
     .LANE_COUNT                 ( LANE_COUNT                )
 )
-CC (
+fofb_cc_top_inst (
     .refclk_p_i                 ( gtp_clk_p                 ),
     .refclk_n_i                 ( gtp_clk_n                 ),
     .sysclk_i                   ( trn_clk_c                 ),
+    .sysreset_n_i               ( sys_reset_n_c             ),
 
     .fai_cfg_a_o                ( fai_cfg_a                 ),
     .fai_cfg_d_o                ( fai_cfg_do                ), // O [31:0]
@@ -446,11 +445,10 @@ CC (
     .fai_rio_tdp_o              ( sfp_txp                   ),
     .fai_rio_tdn_o              ( sfp_txn                   ),
 
-    .xy_buf_addr_i              ( xy_buf_addr[8:0]          ),
+    .xy_buf_addr_i              ( xy_buf_addr               ),
     .xy_buf_dat_o               ( xy_buf_dat                ),
     .timeframe_end_rise_o       ( timeframe_end_rise        ),
     .fofb_dma_ok_i              ( fofb_dma_ok               ),
-    .fofb_node_mask_o           ( fofb_node_mask            ),
     .fofb_rxlink_up_o           ( fofb_rxlink_up            ),
     .fofb_rxlink_partner_o      ( fofb_rxlink_partner       ),
     .harderror_cnt_o            ( harderror_cnt             ),

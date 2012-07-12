@@ -7,8 +7,7 @@
 
 `timescale 1ns/1ns
 
-module BMD #
-(
+module BMD # (
     parameter INTERFACE_WIDTH = 64,
     parameter INTERFACE_TYPE = 4'b0010,
     parameter FPGA_FAMILY = 8'h14
@@ -97,7 +96,6 @@ module BMD #
     xy_buf_addr_o,
     xy_buf_dat_i,
     timeframe_end_rise_i,
-    fofb_node_mask_i,
     fofb_dma_ok_o,
     fofb_rxlink_up_i,
     fofb_rxlink_partner_i,
@@ -198,7 +196,6 @@ output [31:0]   fai_cfg_val_o;
 output [9:0]    xy_buf_addr_o;
 input  [63:0]   xy_buf_dat_i;
 input           timeframe_end_rise_i;
-input  [255:0]  fofb_node_mask_i;
 output          fofb_dma_ok_o;
 input           fofb_rxlink_up_i;
 input  [9:0]    fofb_rxlink_partner_i;
@@ -213,7 +210,7 @@ wire          bmd_reset_n = trn_reset_n & ~trn_lnk_up_n;
 wire [5:0]    cfg_cap_max_lnk_width;
 wire [2:0]    cfg_cap_max_payload_size;
 
-BMD_EP# 
+BMD_EP #
 (
     .INTERFACE_WIDTH                ( INTERFACE_WIDTH                   ),
     .INTERFACE_TYPE                 ( INTERFACE_TYPE                    ),
@@ -295,7 +292,6 @@ BMD_EP (
     .xy_buf_addr_o                  ( xy_buf_addr_o                     ),
     .xy_buf_dat_i                   ( xy_buf_dat_i                      ),
     .timeframe_end_rise_i           ( timeframe_end_rise_i              ),
-    .fofb_node_mask_i               ( fofb_node_mask_i                  ),
     .fofb_dma_ok_o                  ( fofb_dma_ok_o                     ),
     .fofb_rxlink_up_i               ( fofb_rxlink_up_i                  ),
     .fofb_rxlink_partner_i          ( fofb_rxlink_partner_i             ),

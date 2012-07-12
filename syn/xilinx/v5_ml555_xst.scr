@@ -10,5 +10,5 @@ run
 -ram_style Block
 -fsm_encoding One-Hot
 -read_cores Yes
--sd {"../../rtl/FastFeedbackFPGA/rtl/fofb_cc_rx_fifo/coregen/virtex5/" "../../rtl/FastFeedbackFPGA/rtl/fofb_cc_tx_fifo/coregen/virtex5/"}
+-sd {"../implementation"}
 -uc pcie_cc_top.xcf
