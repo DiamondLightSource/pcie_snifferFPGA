@@ -109,22 +109,6 @@ INST "ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_td
 INST "ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_retry/generate_sdp.ram_sdp_inst"      LOC = RAMB36_X1Y5 ;
 
 ###############################################################################
-# PlanAhead generated physical constraints 
-###############################################################################
-
-#INST "CC/i_fofb_cc_top/i_fofb_cc_fod/XPosMem/Mram_mem" LOC = RAMB36_X1Y10;
-#INST "CC/i_fofb_cc_top/i_fofb_cc_fod/YPosMem/Mram_mem" LOC = RAMB36_X1Y11;
-#INST "CC/i_fofb_cc_top/RX_FIFO_GEN[0].i_fofb_cc_rx_fifo/BU2/U0/grf.rf/mem/gbm.gbmg.gbmga.ngecc.bmg/blk_mem_generator/valid.cstr/ramloop[2].ram.r/v5_noinit.ram/SDP.SINGLE_PRIM36.TDP" LOC = RAMB36_X1Y15;
-#INST "CC/i_fofb_cc_top/RX_FIFO_GEN[0].i_fofb_cc_rx_fifo/BU2/U0/grf.rf/mem/gbm.gbmg.gbmga.ngecc.bmg/blk_mem_generator/valid.cstr/ramloop[1].ram.r/v5_noinit.ram/SDP.SINGLE_PRIM36.TDP" LOC = RAMB36_X1Y16;
-#INST "CC/i_fofb_cc_top/RX_FIFO_GEN[0].i_fofb_cc_rx_fifo/BU2/U0/grf.rf/mem/gbm.gbmg.gbmga.ngecc.bmg/blk_mem_generator/valid.cstr/ramloop[0].ram.r/v5_noinit.ram/SDP.SINGLE_PRIM36.TDP" LOC = RAMB36_X1Y17;
-#INST "CC/i_fofb_cc_top/TX_FIFO_GEN[0].i_fofb_cc_tx_fifo/BU2/U0/grf.rf/mem/gbm.gbmg.gbmga.ngecc.bmg/blk_mem_generator/valid.cstr/ramloop[3].ram.r/v5_noinit.ram/SDP.SINGLE_PRIM36.TDP" LOC = RAMB36_X1Y18;
-#INST "CC/i_fofb_cc_top/TX_FIFO_GEN[0].i_fofb_cc_tx_fifo/BU2/U0/grf.rf/mem/gbm.gbmg.gbmga.ngecc.bmg/blk_mem_generator/valid.cstr/ramloop[2].ram.r/v5_noinit.ram/SDP.SINGLE_PRIM36.TDP" LOC = RAMB36_X1Y19;
-#INST "CC/i_fofb_cc_top/TX_FIFO_GEN[0].i_fofb_cc_tx_fifo/BU2/U0/grf.rf/mem/gbm.gbmg.gbmga.ngecc.bmg/blk_mem_generator/valid.cstr/ramloop[1].ram.r/v5_noinit.ram/SDP.SINGLE_PRIM36.TDP" LOC = RAMB36_X1Y20;
-#INST "CC/i_fofb_cc_top/TX_FIFO_GEN[0].i_fofb_cc_tx_fifo/BU2/U0/grf.rf/mem/gbm.gbmg.gbmga.ngecc.bmg/blk_mem_generator/valid.cstr/ramloop[0].ram.r/v5_noinit.ram/SDP.SINGLE_PRIM36.TDP" LOC = RAMB36_X1Y21;
-#INST "CC/i_fofb_cc_top/RX_FIFO_GEN[0].i_fofb_cc_rx_fifo/BU2/U0/grf.rf/mem/gbm.gbmg.gbmga.ngecc.bmg/blk_mem_generator/valid.cstr/ramloop[3].ram.r/v5_noinit.ram/SDP.SINGLE_PRIM36.TDP" LOC = RAMB36_X1Y14;
-
-
-###############################################################################
 # Timing Constraints
 ###############################################################################
 

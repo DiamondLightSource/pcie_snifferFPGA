@@ -1,5 +1,5 @@
-CMDLINE ?= false	# Run modelsim on command line with -c flag
-DUMPVCD ?=			# Dump waveforms into .vcd file with +dump_all flag 
+CMDLINE ?= false   # Run modelsim on command line with -c flag
+DUMPVCD ?=         # Dump waveforms into .vcd file with +dump_all flag 
 
 ifeq ($(CMDLINE),true)
 	CMD_FLAG=-c

@@ -28,7 +28,7 @@ module BMD_EP_MEM# (
     init_rst_o,            // O
 
     mwr_start_o,           // O
-    mwr_int_dis_o,         // O 
+    mwr_int_dis_o,         // O
     mwr_addr_o,            // O [31:0]
     mwr_len_o,             // O [31:0]
     mwr_tlp_tc_o,          // O [2:0]
@@ -104,7 +104,7 @@ output            init_rst_o;
 output            mwr_start_o;
 output            mwr_int_dis_o;
 output [31:0]     mwr_addr_o;
-output [9:0]     mwr_len_o;
+output [9:0]      mwr_len_o;
 output [2:0]      mwr_tlp_tc_o;
 output            mwr_64b_en_o;
 output            mwr_phant_func_dis1_o;
@@ -283,6 +283,8 @@ always @(posedge clk ) begin
         else if (a_i[6:0] == 7'b0000011 && wr_en_i)
             addr_val_upper <= 1'b1;
 
+        // Make control flags single clock cycle pulses
+        init_rst_o  <= 1'b0;
         mwr_start_o <= 1'b0;
         mwr_stop_o <= 1'b0;
 
@@ -296,13 +298,7 @@ always @(posedge clk ) begin
                 if (wr_en_i)
                     init_rst_o  <= wr_d_i[0];
 
-                    rd_d_o <= {fpga_family, {4'b0}, interface_type, version_number};
-
-                    if (init_rst_o) begin
-                        mwr_start_o <= 1'b0;
-                        mwr_stop_o <= 1'b0;
-                    end
-
+                rd_d_o <= {fpga_family, {4'b0}, interface_type, version_number};
             end
 
             // 04-07H :  Reg # 1
@@ -319,7 +315,7 @@ always @(posedge clk ) begin
                     mwr_relaxed_order_o <=  wr_d_i[5];
                     mwr_nosnoop_o <= wr_d_i[6];
                     mwr_int_dis_o <= wr_d_i[7];
-                end 
+                end
             end
 
             // 08-0BH : Reg # 2

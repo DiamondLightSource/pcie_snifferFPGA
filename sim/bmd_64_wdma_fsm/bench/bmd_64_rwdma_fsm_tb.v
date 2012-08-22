@@ -12,19 +12,20 @@ reg [7:0] next_wdma_up_addr_i;
 reg next_wdma_valid_i;
 reg wdma_start_i;
 reg wdma_stop_i;
-reg [31:0] wdma_frame_len_i;
-reg timeframe_end_i;
+reg [15:0] wdma_frame_len_i;
+reg timeframe_end_rise_i;
 
 // Outputs
 wire wdma_rst_o;
 wire wdma_start_o;
-wire [63:0] wdma_addr_o;
+wire [39:0] wdma_addr_o;
 wire wdma_irq_o;
 wire wdma_running_o;
 wire [15:0] wdma_irq_time_o;
 wire [7:0] wdma_miss_cnt_o;
-wire [6:0] wdma_buf_ptr_o;
+wire [15:0] wdma_buf_ptr_o;
 wire [3:0] wdma_status_o;
+wire cc_timeout_o;
 
 integer i;
 
@@ -34,20 +35,27 @@ BMD_64_RWDMA_FSM uut (
     .rst_n              ( rst_n                 ),
     .init_rst_i         ( init_rst_i            ),
     .wdma_rst_o         ( wdma_rst_o            ),
+
+    .mwr_len_i          ( 10'd32                ),
+    .mwr_count_i        ( 16'd16                ),
+
     .wdma_start_o       ( wdma_start_o          ),
     .wdma_addr_o        ( wdma_addr_o           ),
-    .wdma_done_i        ( wdma_done_i           ), 
-    .wdma_irq_o         ( wdma_irq_o            ), 
-    .next_wdma_addr_i   ( next_wdma_addr_i      ), 
-    .next_wdma_up_addr_i( next_wdma_up_addr_i   ), 
-    .next_wdma_valid_i  ( next_wdma_valid_i     ), 
-    .wdma_start_i       ( wdma_start_i          ), 
-    .wdma_stop_i        ( wdma_stop_i           ), 
-    .wdma_running_o     ( wdma_running_o        ), 
-    .wdma_frame_len_i   ( wdma_frame_len_i      ), 
-    .timeframe_end_i    ( timeframe_end_i       ), 
+    .wdma_done_i        ( wdma_done_i           ),
+    .wdma_irq_o         ( wdma_irq_o            ),
+
+    .next_wdma_addr_i   ( next_wdma_addr_i      ),
+    .next_wdma_up_addr_i( next_wdma_up_addr_i   ),
+    .next_wdma_valid_i  ( next_wdma_valid_i     ),
+    .wdma_start_i       ( wdma_start_i          ),
+    .wdma_stop_i        ( wdma_stop_i           ),
+    .wdma_running_o     ( wdma_running_o        ),
+    .wdma_frame_len_i   ( wdma_frame_len_i      ),
+
+    .timeframe_end_rise_i    ( timeframe_end_rise_i       ),
     .wdma_buf_ptr_o     ( wdma_buf_ptr_o        ),
-    .wdma_status_o      ( wdma_status_o         )
+    .wdma_status_o      ( wdma_status_o         ),
+    .cc_timeout_o       ( cc_timeout_o          )
 );
 
 parameter        offset = 0;
@@ -67,12 +75,12 @@ initial begin
 end
 
 initial begin
-    timeframe_end_i = 0;
+    timeframe_end_rise_i = 0;
     repeat(100) @(posedge clk);
     forever begin
-        timeframe_end_i = 0;
+        timeframe_end_rise_i = 0;
         @(posedge clk);
-        timeframe_end_i = 0;
+        timeframe_end_rise_i = 0;
         repeat(9999) @(posedge clk);
     end
 end

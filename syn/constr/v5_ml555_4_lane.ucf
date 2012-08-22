@@ -79,19 +79,11 @@ INST "ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[2].GT_i" LOC = GTP_DUAL_X0
 # BlockRAM placement
 #
 
-INST "ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X1Y9 ;
+#INST "ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X1Y9 ;
 INST "ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X1Y8 ;
-INST "ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X1Y7 ;
+#INST "ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X1Y7 ;
 INST "ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X1Y6 ;
 INST "ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_retry/generate_sdp.ram_sdp_inst"      LOC = RAMB36_X1Y5 ;
-
-#
-# Timing critical placements
-#
-
-#INST "ep/pcie_ep0/pcie_blk_if/ll_bridge/tx_bridge/tx_bridge/shift_pipe1" LOC = "SLICE_X59Y36" ;
-#INST "ep/pcie_ep0/pcie_blk_if/ll_bridge/rx_bridge/arb_inst/completion_available" LOC = "SLICE_X58Y26" ;
-#INST "ep/pcie_ep0/pcie_blk_if/cf_bridge/management_interface/mgmt_rdata_d1_3" LOC = "SLICE_X59Y25" ;
 
 ###############################################################################
 # Timing Constraints

@@ -109,9 +109,9 @@ begin
     end
     else begin
 
-        if (init_rst_i || wdma_start_i || timeframe_end_rise_i)
+        if (init_rst_i || timeframe_end_rise_i)
             cnt_16bit = 0;
-        else if (!cnt_16bit[15])
+        else if (!cnt_16bit[15] && wdma_state == `WDMA_WAIT_CC)
             cnt_16bit = cnt_16bit + 1;
     end
 end
@@ -197,7 +197,6 @@ begin
             `WDMA_DOING_DMA : begin
                 if (wdma_done_i) begin
                     wdma_start_o <= 1'b0;
-//                    wdma_addr_o <= wdma_addr_o + 2048;
                     wdma_addr_o <= wdma_addr_o + wdma_frame_size;
                     wdma_buf_cnt <=  wdma_buf_cnt + 1;
                     wdma_state <= `WDMA_CHECK;

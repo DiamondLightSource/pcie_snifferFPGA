@@ -4,11 +4,11 @@
 PLATFORM = $(shell uname -m)
 
 ifeq ($(PLATFORM),x86_64)
-	ISE=source /dls_sw/apps/FPGA/Xilinx/14.1/14.1/ISE_DS/settings64.sh > /dev/null
+	ISE=source /dls_sw/apps/FPGA/Xilinx/14.2/14.2/ISE_DS/settings64.sh > /dev/null
 endif
 
 ifeq ($(PLATFORM),i686)
-	ISE=source /dls_sw/apps/FPGA/Xilinx/14.1/14.1/ISE_DS/settings32.sh > /dev/null
+	ISE=source /dls_sw/apps/FPGA/Xilinx/14.2/14.2/ISE_DS/settings32.sh > /dev/null
 endif
 
 #
@@ -33,7 +33,7 @@ LANE = 4
 #
 PCIE = true
 CC = true
-PCIECORE = endpoint_blk_plus_v1_14
+PCIECORE = endpoint_blk_plus_v1_15
 
 main:
 	$(ISE) && make -C syn/run -f ../Makefile PCIE=$(PCIE) CC=$(CC) PCIECORE=$(PCIECORE) FPGA=$(FPGA) BOARD=$(BOARD) LANE=$(LANE) bits

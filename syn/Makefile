@@ -72,7 +72,6 @@ ifeq ($(CC),true)
 endif
 
 $(ENDPOINT_DIR):
-	rm -rf ../../rtl/pcie_cc_endpoint/endpoint_blk_plus
 	ln -sf $(PCIECORE)_$(LANE)_lane $(ENDPOINT_DIR)
 
 $(NETLIST_DIR):
@@ -123,12 +122,14 @@ $(PROM_FILE): $(BIT_FILE)
 # Clean implementation files
 clean:
 	rm -rf ../../rtl/pcie_cc_top/verilog/pcie_cc_top_defines.v
+	rm -rf ../../rtl/pcie_cc_endpoint/endpoint_blk_plus
 	rm -rf $(VERSION_FILE)
 	rm -rf ../run/*
 
 hwclean:
 	rm -rf ../implementation
 	rm -rf ../../rtl/pcie_cc_top/verilog/pcie_cc_top_defines.v
+	rm -rf ../../rtl/pcie_cc_endpoint/endpoint_blk_plus
 	rm -rf $(VERSION_FILE)
 	rm -rf ../run/*
 
