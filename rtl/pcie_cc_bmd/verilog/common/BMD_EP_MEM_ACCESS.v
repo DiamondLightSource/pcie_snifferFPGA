@@ -122,7 +122,9 @@ module BMD_EP_MEM_ACCESS#
     fofb_cc_timeout_i,
     harderror_cnt_i,
     softerror_cnt_i,
-    frameerror_cnt_i
+    frameerror_cnt_i,
+    bpmid_o,
+    timeframe_length_o
 );
 
 input            clk;
@@ -215,6 +217,9 @@ input            fofb_cc_timeout_i;
 input  [15: 0]   harderror_cnt_i;
 input  [15: 0]   softerror_cnt_i;
 input  [15: 0]   frameerror_cnt_i;
+output [ 9: 0]   bpmid_o;
+output [15: 0]   timeframe_length_o;
+
 
 
 wire [31:0]      mem_rd_data;
@@ -397,7 +402,9 @@ BMD_EP_MEM# (
     .fofb_cc_timeout_i          ( fofb_cc_timeout_i             ),
     .harderror_cnt_i            ( harderror_cnt_i               ),
     .softerror_cnt_i            ( softerror_cnt_i               ),
-    .frameerror_cnt_i           ( frameerror_cnt_i              )
+    .frameerror_cnt_i           ( frameerror_cnt_i              ),
+    .bpmid_o                    ( bpmid_o                       ),
+    .timeframe_length_o         ( timeframe_length_o            )
 );
 
 endmodule

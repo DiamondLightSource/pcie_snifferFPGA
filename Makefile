@@ -4,11 +4,11 @@
 PLATFORM = $(shell uname -m)
 
 ifeq ($(PLATFORM),x86_64)
-	ISE=source /dls_sw/apps/FPGA/Xilinx/14.2/14.2/ISE_DS/settings64.sh > /dev/null
+	ISE=source /dls_sw/apps/FPGA/Xilinx/14.3/14.3/ISE_DS/settings64.sh > /dev/null
 endif
 
 ifeq ($(PLATFORM),i686)
-	ISE=source /dls_sw/apps/FPGA/Xilinx/14.2/14.2/ISE_DS/settings32.sh > /dev/null
+	ISE=source /dls_sw/apps/FPGA/Xilinx/14.3/14.3/ISE_DS/settings32.sh > /dev/null
 endif
 
 #

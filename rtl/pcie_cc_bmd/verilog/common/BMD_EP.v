@@ -95,7 +95,9 @@ module BMD_EP# (
     fofb_rxlink_partner_i,
     harderror_cnt_i,
     softerror_cnt_i,
-    frameerror_cnt_i
+    frameerror_cnt_i,
+    bpmid_o,
+    timeframe_length_o
 );
 
 input              clk;
@@ -181,6 +183,9 @@ input  [9:0]      fofb_rxlink_partner_i;
 input  [15: 0]    harderror_cnt_i;
 input  [15: 0]    softerror_cnt_i;
 input  [15: 0]    frameerror_cnt_i;
+
+output [ 9: 0]    bpmid_o;
+output [15: 0]    timeframe_length_o;
 
 wire   fofb_dma_ok_o = 1'b1;
 
@@ -377,7 +382,9 @@ EP_MEM (
     .fofb_cc_timeout_i          ( fofb_cc_timeout               ),
     .harderror_cnt_i            ( harderror_cnt_i               ),
     .softerror_cnt_i            ( softerror_cnt_i               ),
-    .frameerror_cnt_i           ( frameerror_cnt_i              )
+    .frameerror_cnt_i           ( frameerror_cnt_i              ),
+    .bpmid_o                    ( bpmid_o                       ),
+    .timeframe_length_o         ( timeframe_length_o            )
 );
 
 

@@ -95,7 +95,9 @@ module  pci_exp_64b_app (
     fofb_rxlink_partner_i,
     harderror_cnt_i,
     softerror_cnt_i,
-    frameerror_cnt_i
+    frameerror_cnt_i,
+    bpmid_o,
+    timeframe_length_o
 );
 
 // Common
@@ -196,6 +198,8 @@ input  [9:0]            fofb_rxlink_partner_i;
 input  [15: 0]          harderror_cnt_i;
 input  [15: 0]          softerror_cnt_i;
 input  [15: 0]          frameerror_cnt_i;
+output [ 9: 0]          bpmid_o;
+output [15: 0]          timeframe_length_o;
 
 /*
  * Core input tie-offs
@@ -305,7 +309,9 @@ BMD (
     .fofb_rxlink_partner_i      ( fofb_rxlink_partner_i         ),
     .harderror_cnt_i            ( harderror_cnt_i               ),
     .softerror_cnt_i            ( softerror_cnt_i               ),
-    .frameerror_cnt_i           ( frameerror_cnt_i              )
+    .frameerror_cnt_i           ( frameerror_cnt_i              ),
+    .bpmid_o                    ( bpmid_o                       ),
+    .timeframe_length_o         ( timeframe_length_o            )
 );
 
 endmodule // pci_exp_64b_app

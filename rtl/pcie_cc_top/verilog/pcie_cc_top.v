@@ -175,6 +175,8 @@ wire [9:0]              fofb_rxlink_partner;
 wire [15: 0]            harderror_cnt;
 wire [15: 0]            softerror_cnt;
 wire [15: 0]            frameerror_cnt;
+wire [ 9: 0]            bpmid;
+wire [15: 0]            timeframe_length;
 
 `ifdef PCIE
 /*
@@ -287,7 +289,9 @@ pci_exp_64b_app app (
     .fofb_rxlink_partner_i      ( fofb_rxlink_partner       ),
     .harderror_cnt_i            ( harderror_cnt             ),
     .softerror_cnt_i            ( softerror_cnt             ),
-    .frameerror_cnt_i           ( frameerror_cnt            )
+    .frameerror_cnt_i           ( frameerror_cnt            ),
+    .bpmid_o                    ( bpmid                     ),
+    .timeframe_length_o         ( timeframe_length          )
 );
 
 /*
@@ -453,7 +457,9 @@ fofb_cc_top_inst (
     .fofb_rxlink_partner_o      ( fofb_rxlink_partner       ),
     .harderror_cnt_o            ( harderror_cnt             ),
     .softerror_cnt_o            ( softerror_cnt             ),
-    .frameerror_cnt_o           ( frameerror_cnt            )
+    .frameerror_cnt_o           ( frameerror_cnt            ),
+    .bpmid_i                    ( bpmid                     ),
+    .timeframe_length_i         ( timeframe_length          )
 );
 
 `endif

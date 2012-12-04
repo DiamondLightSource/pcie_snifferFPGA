@@ -79,7 +79,9 @@ module BMD_EP_MEM# (
     fofb_cc_timeout_i,
     harderror_cnt_i,
     softerror_cnt_i,
-    frameerror_cnt_i
+    frameerror_cnt_i,
+    bpmid_o,
+    timeframe_length_o
 );
 
 input             clk;
@@ -158,8 +160,13 @@ input  [15: 0]      harderror_cnt_i;
 input  [15: 0]      softerror_cnt_i;
 input  [15: 0]      frameerror_cnt_i;
 
+output [ 9: 0]      bpmid_o;
+output [15: 0]      timeframe_length_o;
+
 reg [31:0]          fai_cfg_val_o;
 reg                 mwr_stop_o;
+reg [ 9: 0]         bpmid_o;
+reg [15: 0]         timeframe_length_o;
 
 // Local Regs
 
@@ -247,6 +254,10 @@ always @(posedge clk ) begin
         fai_cfg_val_o <= 32'h0;
         addr_val_lower <= 1'b0;
         addr_val_upper <= 1'b0;
+
+        bpmid_o <= 0;
+        timeframe_length_o <= 9500;
+
 `ifdef PCIE2_0
         clr_pl_width_change_err <= 1'b0;
         clr_pl_speed_change_err <= 1'b0;
@@ -469,22 +480,42 @@ always @(posedge clk ) begin
                              6'h0, fofb_cc_timeout_i, fofb_rxlink_up_i };
             end
 
-            // 8C-8F : Reg # 35
+            // 8C-8FH : Reg # 35
             // Frame error cnt
             7'b100011: begin
                 rd_d_o <= {16'h0, frameerror_cnt_i};
             end
 
-            // 90-93 : Reg # 36
+            // 90-93H : Reg # 36
             // Soft error cnt
             7'b100100: begin
                 rd_d_o <= {16'h0, softerror_cnt_i};
             end
 
-            // 94-97 : Reg # 37
+            // 94-97H : Reg # 37
             // Hard error cnt
             7'b100101: begin
                 rd_d_o <= {16'h0, harderror_cnt_i};
+            end
+
+            // 98-9BH : Reg # 38
+            // Hard error cnt
+            7'b100110: begin
+
+                rd_d_o <= {22'h0, bpmid_o};
+
+                if (wr_en_i)
+                    bpmid_o  <= wr_d_i[9:0];
+            end
+
+            // 9C-9FH : Reg # 39
+            // Hard error cnt
+            7'b100111: begin
+
+                rd_d_o <= {16'h0, timeframe_length_o};
+
+                if (wr_en_i)
+                    timeframe_length_o  <= wr_d_i[15:0];
             end
 
             default: begin

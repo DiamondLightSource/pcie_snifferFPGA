@@ -101,7 +101,9 @@ module BMD # (
     fofb_rxlink_partner_i,
     harderror_cnt_i,
     softerror_cnt_i,
-    frameerror_cnt_i
+    frameerror_cnt_i,
+    bpmid_o,
+    timeframe_length_o
 ); // synthesis syn_hier = "hard"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -202,6 +204,8 @@ input  [9:0]    fofb_rxlink_partner_i;
 input  [15: 0]  harderror_cnt_i;
 input  [15: 0]  softerror_cnt_i;
 input  [15: 0]  frameerror_cnt_i;
+output [ 9: 0]  bpmid_o;
+output [15: 0]  timeframe_length_o;
 
 // Local wires
 wire          req_compl;
@@ -297,7 +301,9 @@ BMD_EP (
     .fofb_rxlink_partner_i          ( fofb_rxlink_partner_i             ),
     .harderror_cnt_i                ( harderror_cnt_i                   ),
     .softerror_cnt_i                ( softerror_cnt_i                   ),
-    .frameerror_cnt_i               ( frameerror_cnt_i                  )
+    .frameerror_cnt_i               ( frameerror_cnt_i                  ),
+    .bpmid_o                        ( bpmid_o                           ),
+    .timeframe_length_o             ( timeframe_length_o                )
 );
 
 BMD_TO_CTRL BMD_TO  (
