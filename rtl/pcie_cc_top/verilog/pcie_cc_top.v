@@ -167,7 +167,8 @@ wire                    fai_cfg_clk;
 wire [31: 0]            fai_cfg_val;
 wire [9:0]              xy_buf_addr;
 wire [63:0]             xy_buf_dat;
-wire                    timeframe_end_rise;
+wire                    timeframe_end;
+wire                    timeframe_end_synced;
 wire [511:0]            fofb_node_mask;
 wire                    fofb_dma_ok;
 wire                    fofb_rxlink_up;
@@ -177,6 +178,18 @@ wire [15: 0]            softerror_cnt;
 wire [15: 0]            frameerror_cnt;
 wire [ 9: 0]            bpmid;
 wire [15: 0]            timeframe_length;
+
+/*
+ * Clock domain crossing for CC signals
+ */
+fofb_cc_p2p timeframe_start_inst (
+    .in_clk                     ( fai_cfg_clk               ),
+    .out_clk                    ( trn_clk_c                 ),
+    .rst                        ( 1'b0                      ),
+    .pulsein                    ( timeframe_end             ),
+    .inbusy                     (                           ),
+    .pulseout                   ( timeframe_end_synced      )
+);
 
 `ifdef PCIE
 /*
@@ -283,7 +296,7 @@ pci_exp_64b_app app (
     .fai_cfg_val_o              ( fai_cfg_val               ),
     .xy_buf_addr_o              ( xy_buf_addr               ),
     .xy_buf_dat_i               ( xy_buf_dat                ),
-    .timeframe_end_rise_i       ( timeframe_end_rise        ),
+    .timeframe_end_i            ( timeframe_end_synced      ),
     .fofb_dma_ok_o              ( fofb_dma_ok               ),
     .fofb_rxlink_up_i           ( fofb_rxlink_up            ),
     .fofb_rxlink_partner_i      ( fofb_rxlink_partner       ),
@@ -451,7 +464,7 @@ fofb_cc_top_inst (
 
     .xy_buf_addr_i              ( xy_buf_addr               ),
     .xy_buf_dat_o               ( xy_buf_dat                ),
-    .timeframe_end_rise_o       ( timeframe_end_rise        ),
+    .timeframe_end_o            ( timeframe_end             ),
     .fofb_dma_ok_i              ( fofb_dma_ok               ),
     .fofb_rxlink_up_o           ( fofb_rxlink_up            ),
     .fofb_rxlink_partner_o      ( fofb_rxlink_partner       ),

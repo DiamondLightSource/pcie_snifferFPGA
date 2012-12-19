@@ -95,7 +95,7 @@ module BMD # (
 
     xy_buf_addr_o,
     xy_buf_dat_i,
-    timeframe_end_rise_i,
+    timeframe_end_i,
     fofb_dma_ok_o,
     fofb_rxlink_up_i,
     fofb_rxlink_partner_i,
@@ -197,7 +197,7 @@ input           fai_cfg_clk_i;
 output [31:0]   fai_cfg_val_o;
 output [9:0]    xy_buf_addr_o;
 input  [63:0]   xy_buf_dat_i;
-input           timeframe_end_rise_i;
+input           timeframe_end_i;
 output          fofb_dma_ok_o;
 input           fofb_rxlink_up_i;
 input  [9:0]    fofb_rxlink_partner_i;
@@ -295,7 +295,7 @@ BMD_EP (
     .fai_cfg_val_o                  ( fai_cfg_val_o                     ),
     .xy_buf_addr_o                  ( xy_buf_addr_o                     ),
     .xy_buf_dat_i                   ( xy_buf_dat_i                      ),
-    .timeframe_end_rise_i           ( timeframe_end_rise_i              ),
+    .timeframe_end_i                ( timeframe_end_i              ),
     .fofb_dma_ok_o                  ( fofb_dma_ok_o                     ),
     .fofb_rxlink_up_i               ( fofb_rxlink_up_i                  ),
     .fofb_rxlink_partner_i          ( fofb_rxlink_partner_i             ),

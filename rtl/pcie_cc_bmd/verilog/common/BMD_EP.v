@@ -89,7 +89,7 @@ module BMD_EP# (
     fai_cfg_val_o,
     xy_buf_addr_o,
     xy_buf_dat_i,
-    timeframe_end_rise_i,
+    timeframe_end_i,
     fofb_dma_ok_o,
     fofb_rxlink_up_i,
     fofb_rxlink_partner_i,
@@ -176,7 +176,7 @@ output [31:0]     fai_cfg_val_o;
 
 output [9:0]      xy_buf_addr_o;
 input  [63:0]     xy_buf_dat_i;
-input             timeframe_end_rise_i;
+input             timeframe_end_i;
 output            fofb_dma_ok_o;
 input             fofb_rxlink_up_i;
 input  [9:0]      fofb_rxlink_partner_i;
@@ -542,7 +542,7 @@ BMD_64_RWDMA_FSM BMD_64_RWDMA_FSM (
     .wdma_running_o             (                               ),
     .wdma_frame_len_i           ( mwr_data[15:0]                ),
 
-    .timeframe_end_rise_i       ( timeframe_end_rise_i          ),
+    .timeframe_end_i            ( timeframe_end_i               ),
 
     .wdma_buf_ptr_o             ( wdma_buf_ptr                  ),
     .wdma_status_o              ( wdma_status                   ),

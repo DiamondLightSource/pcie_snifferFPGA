@@ -34,7 +34,7 @@ module BMD_64_RWDMA_FSM (
     wdma_frame_len_i,
 
     // CC interface
-    timeframe_end_rise_i,
+    timeframe_end_i,
 
     // WDMA status
     wdma_buf_ptr_o,
@@ -63,7 +63,7 @@ input           wdma_stop_i;
 output          wdma_running_o;
 input  [15:0]   wdma_frame_len_i;
 
-input           timeframe_end_rise_i;
+input           timeframe_end_i;
 
 output [15:0]   wdma_buf_ptr_o;
 output [3:0]    wdma_status_o;
@@ -78,7 +78,7 @@ reg    [3:0]    wdma_status_o;
 /*
  * Registers
  */
-reg             timeframe_end_rise_prev;
+reg             timeframe_end_prev;
 reg [15:0]      wdma_buf_cnt;
 reg [5:0]       wdma_state;
 reg [5:0]       wdma_state_prev;
@@ -93,7 +93,7 @@ wire [31:0]     wdma_frame_size  = 4 * mwr_len_i * mwr_count_i;
 /* Buffer length in number of frames, each frame is 2Kbytes */
 wire [15:0]     wdma_buf_size = wdma_frame_len_i[15:0];
 
-wire            wdma_rst_o = timeframe_end_rise_i && (wdma_state == `WDMA_WAIT_CC);
+wire            wdma_rst_o = timeframe_end_i && (wdma_state == `WDMA_WAIT_CC);
 /* Write pointer value to user app */
 wire [15:0]     wdma_buf_ptr_o = wdma_buf_cnt;
 
@@ -109,7 +109,7 @@ begin
     end
     else begin
 
-        if (init_rst_i || timeframe_end_rise_i)
+        if (init_rst_i || timeframe_end_i)
             cnt_16bit = 0;
         else if (!cnt_16bit[15] && wdma_state == `WDMA_WAIT_CC)
             cnt_16bit = cnt_16bit + 1;
@@ -120,7 +120,7 @@ always @ (posedge clk)
 begin
     if (!rst_n) begin
         wdma_state <= `WDMA_IDLE;
-        timeframe_end_rise_prev <= 1'b0;
+        timeframe_end_prev <= 1'b0;
         wdma_addr_o <= 40'h0;
         wdma_irq_o <= 1'b0;
         wdma_start_o <= 1'b0;
@@ -147,7 +147,7 @@ begin
         wdma_state_prev <= wdma_state;
 
         /* Extra FF for clock domain crossing */
-        timeframe_end_rise_prev <= timeframe_end_rise_i;
+        timeframe_end_prev <= timeframe_end_i;
 
         if (next_wdma_valid_i)
             next_wdma_valid <= 1'b1;
@@ -188,7 +188,7 @@ begin
                     wdma_state <= `WDMA_STOPPED;
                     wdma_irq_o <= 1'b1;
                 end
-                else if (timeframe_end_rise_prev) begin
+                else if (timeframe_end_prev) begin
                     wdma_start_o <= 1'b1;
                     wdma_state <= `WDMA_DOING_DMA;
                 end
@@ -263,12 +263,12 @@ end
 //
 //assign trig[0] = init_rst_i;
 //assign trig[1] = wdma_start_o;
-//assign trig[2] = timeframe_end_rise;
+//assign trig[2] = timeframe_end;
 //
 //assign data[0] = init_rst_i;
 //assign data[1] = wdma_start_o;
 //assign data[2] = timeframe_end_i;
-//assign data[3] = timeframe_end_rise;
+//assign data[3] = timeframe_end;
 //assign data[4] = cc_timeout_o;
 //assign data[10:5] = wdma_state;
 //assign data[14:11] = wdma_status_o;
