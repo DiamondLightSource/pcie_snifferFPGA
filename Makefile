@@ -1,15 +1,7 @@
 #
 # Xilinx ISE Environment
 #
-PLATFORM = $(shell uname -m)
-
-ifeq ($(PLATFORM),x86_64)
-	ISE=source /dls_sw/apps/FPGA/Xilinx/14.3/14.3/ISE_DS/settings64.sh > /dev/null
-endif
-
-ifeq ($(PLATFORM),i686)
-	ISE=source /dls_sw/apps/FPGA/Xilinx/14.3/14.3/ISE_DS/settings32.sh > /dev/null
-endif
+ISE=source /dls_sw/FPGA/Xilinx/14.3/ISE_DS/settings64.sh > /dev/null
 
 #
 # Print the names of unlocked (unconstrainted) IOs
